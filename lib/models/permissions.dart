@@ -27,3 +27,4 @@ class Permissions {
     return '$permDescription';
   }
 }
+
