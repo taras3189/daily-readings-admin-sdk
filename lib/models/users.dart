@@ -1,5 +1,6 @@
 import 'package:daily_readings_admin_sdk/models/roles.dart';
 
+
 class Users {
   late final int? id;
   late final String? email;

@@ -1,12 +1,13 @@
+import 'package:daily_readings_admin_sdk/models/permissions.dart';
 
 
 class Roles {
-  final int? id;
-  final String? roleName;
-  final String? roleDescription;
-  final String? createdAt;
-  final String? updatedAt;
-  final List<Permissions>? permissions;
+  late final int? id;
+  late final String? roleName;
+  late final String? roleDescription;
+  late final String? createdAt;
+  late final String? updatedAt;
+  late final List<Permissions>? permissions;
 
   Roles({this.id, this.roleName, this.roleDescription, this.createdAt, this.updatedAt, this.permissions});
 
