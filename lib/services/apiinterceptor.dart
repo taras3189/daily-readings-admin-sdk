@@ -4,8 +4,7 @@ import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
 
 class ApiInterceptor implements InterceptorContract {
-final storage = const FlutterSecureStorage();
-
+  final storage = const FlutterSecureStorage();
 
   Future<String> get tokenOrEmpty async {
     var token = await storage.read(key: "token");
