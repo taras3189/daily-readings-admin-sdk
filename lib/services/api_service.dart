@@ -32,26 +32,24 @@ class ApiService {
   }
 
   Future<Response> addUser(int roleId, String email, String password,
-      String fullname, String phone) async {
+      String fullname) async {
     var userUrl = Uri.parse('${Constants.BASE_URL}/users');
     final res = await client.post(userUrl, body: {
       "role_id": roleId.toString(),
       "email": email,
       "password": password,
       "fullname": fullname,
-      "phone": phone,
     });
     return res;
   }
 
   Future<Response> updateUser(
-      int? id, int roleId, String email, String fullname, String phone) async {
+      int? id, int roleId, String email, String fullname) async {
     var userUrl = Uri.parse('${Constants.BASE_URL}/users/$id');
     final res = await client.put(userUrl, body: {
       "role_id": roleId.toString(),
       "email": email,
       "fullname": fullname,
-      "phone": phone,
     });
     return res;
   }
