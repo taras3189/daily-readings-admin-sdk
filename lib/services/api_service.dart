@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/intercepted_client.dart';
 import '../helpers/constant.dart';
@@ -17,7 +18,78 @@ class ApiService {
     return res;
   }
 
+  Future<Response> getUserList() async {
+    var userUrl = Uri.parse('${Constants.BASE_URL}/users');
+    final res = await client.get(userUrl);
+    return res;
+  }
+
+  Future<Response> getUserLById(String id) async {
+    var userUrl = Uri.parse('${Constants.BASE_URL}/users/$id');
+    final res = await client.get(userUrl);
+    return res;
+  }
+
+  Future<Response> addUser(int roleId, String email, String password,
+      String fullname, String phone) async {
+    var userUrl = Uri.parse('${Constants.BASE_URL}/users');
+    final res = await client.post(userUrl, body: {
+      "role_id": roleId.toString(),
+      "email": email,
+      "password": password,
+      "fullname": fullname,
+      "phone": phone,
+    });
+    return res;
+  }
+
+  Future<Response> updateUser(int? id, int roleId, String email, String fullname, String phone) async {
+    var userUrl = Uri.parse('${Constants.BASE_URL}/users/$id');
+    final res = await client.put(userUrl, body: {
+      "role_id": roleId.toString(),
+      "email": email,
+      "fullname": fullname,
+      "phone": phone,
+    });
+    return res;
+  }
+
+  Future<Response> deleteUser(String id) async {
+    var userUrl = Uri.parse('${Constants.BASE_URL}/users/$id');
+    final res = await client.delete(userUrl);
+    return res;
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
