@@ -84,10 +84,109 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                 width: 1,
               ),
             ),
-            focusedBorder: OutlineInputBorder(),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              borderSide: BorderSide(
+                color: Color.fromARGB(255, 128, 255, 0),
+                width: 1,
+              ),
+            ),
+            labelText: 'Email',
+            hintText: 'Email',
+            prefixIcon: Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Icon(
+                Icons.email,
+                color: Color.fromARGB(255, 128, 255, 0),
+                size: 24,
+              ),
+            ),
+            labelStyle: TextStyle(
+              height: 1.171875,
+              fontSize: 24,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 128, 255, 0),
+            ),
+            hintStyle: TextStyle(
+              height: 1.171875,
+              fontSize: 24,
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 128, 255, 0),
+            ),
+            filled: true,
           ),
+          style: const TextStyle(
+            color: Color.fromARGB(255, 128, 255, 0),
+            fontSize: 24,),
         ),
       ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+        child: TextFormField(
+            controller: _passwordController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your password';
+              } else {
+                return null;
+              }
+            }
+            onChanged: (value) {},
+        autocorrect: true,
+        obscureText: true,
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+          errorStyle: TextStyle(
+            color: Color.fromARGB(255, 26, 255, 1),
+          ),
+          fillColor: Color.fromARGB(255, 0, 0, 0),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 128, 255, 0),
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 235, 235, 235),
+              width: 1,
+            ),
+          ),
+          labelText: 'Password',
+          hintText: 'Password',
+          prefixIcon: Padding(
+            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Icon(
+              Icons.password,
+              color: Color.fromARGB(255, 128, 255, 0),
+              size: 24,
+            ),
+          ),
+          labelStyle: TextStyle(
+            height: 1.171875,
+            fontSize: 24,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w300,
+            color: Color.fromARGB(255, 128, 255, 0),
+          ),
+          hintStyle: TextStyle(
+            height: 1.171875,
+            fontSize: 24,
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w300,
+            color: Color.fromARGB(255, 128, 255, 0),
+          ),
+          filled: true,
+        ),
+        style: const TextStyle(
+          color: Color.fromARGB(255, 235, 235, 235),
+          fontSize: 24,),
+      ),
+          ),
       ],
     ),)
     ,
