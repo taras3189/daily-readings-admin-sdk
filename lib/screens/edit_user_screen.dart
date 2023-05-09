@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/screens/user_details_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/api_service.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../models/users.dart';
 
 class EditUserScreen extends StatelessWidget {
@@ -100,7 +103,8 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     icon: Icon(
@@ -135,16 +139,16 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       ),
                       items: roles.map((item) {
                         return DropdownMenuItem(
-                            child: Text(
-                              item['role_name'],
-                              style: const TextStyle(
-                                height: 2.171875,
-                                fontSize: 24,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromARGB(255, 26, 255, 1),
-                              ),
+                          child: Text(
+                            item['role_name'],
+                            style: const TextStyle(
+                              height: 2.171875,
+                              fontSize: 24,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w300,
+                              color: Color.fromARGB(255, 26, 255, 1),
                             ),
+                          ),
                           value: item['id'],
                         );
                       }).toList(),
@@ -157,7 +161,253 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                   ),
                 ),
               ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: TextFormField(
+                  controller: _emailController,
+                  validator: (value) {
+                    if (value == null) {
+                      return 'Please enter your email';
+                    } else {
+                      return EmailValidator.validate(value)
+                          ? null
+                          : 'Please fill with the valid email';
+                    }
+                  },
+                  onChanged: (value) {},
+                  autocorrect: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                    ),
+                    labelText: 'Email',
+                    hintText: 'Email',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Icon(
+                        Icons.email,
+                        color: Color.fromARGB(255, 128, 255, 0),
+                        size: 24,
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      height: 1.171875,
+                      fontSize: 24,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    hintStyle: TextStyle(
+                      height: 1.171875,
+                      fontSize: 24,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    filled: true,
+                  ),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: TextFormField(
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                  autocorrect: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 235, 235, 235), width: 1),
+                    ),
+                    labelText: 'Name',
+                    hintText: 'Name',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                      child: Icon(
+                        Icons.perm_identity,
+                        color: Color.fromARGB(255, 128, 255, 0),
+                        size: 24,
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                      height: 1.171875,
+                      fontSize: 24,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromARGB(255, 128, 255, 0),
+                    ),
+                    hintStyle: TextStyle(
+                      height: 1.171875,
+                      fontSize: 24,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w300,
+                      color: Color.fromARGB(255, 128, 255, 0),
+                    ),
+                    filled: true,
+                  ),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: TextFormField(
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                  autocorrect: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 235, 235, 235), width: 1),
+                    ),
+                    labelText: 'Nomor HP',
+                    hintText: 'Nomor HP',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      child: Icon(
+                        Icons.perm_identity,
+                        color: Color.fromARGB(255, 128, 255, 0),
+                        size: 24,
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                        height: 1.171875,
+                        fontSize: 24.0,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromARGB(255, 128, 255, 0)),
+                    hintStyle: TextStyle(
+                        height: 1.171875,
+                        fontSize: 24.0,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromARGB(255, 128, 255, 0)),
+                    filled: true,
+                  ),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                ),
+              ),
 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: SizedBox(
+                  height: 60.0,
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  child: ElevatedButton.icon(
+                    icon: const Icon(
+                      Icons.login,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      size: 24.0,
+                    ),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
+                          )),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromARGB(255, 255, 200, 0)),
+                    ),
+                    onPressed: () async {
+                      if (_editUserFormKey.currentState!.validate()) {
+                        _editUserFormKey.currentState!.save();
+                        EasyLoading.show();
+                        var res = await api.updateUser(
+                            users.id, _valRole!, _emailController.text, _nameController.text);
+
+                        switch (res.statusCode) {
+                          case 200:
+                            EasyLoading.dismiss();
+                            Navigator.pushReplacement(
+                                context, SlideRightRoute(page: const UsersScreen(errMsg: 'Updated Successfully',)));
+                            break;
+                          case 400:
+                            EasyLoading.dismiss();
+                            var data = jsonDecode(res.body);
+                            if (data["msg"] != null) {
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: Text(data["msg"].toString()),
+                              ));
+                            }
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Update Failed"),
+                            ));
+                            break;
+                          case 403:
+                            EasyLoading.dismiss();
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Permission Denied"),
+                            ));
+                            break;
+                          default:
+                            EasyLoading.dismiss();
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Update Failed"),
+                            ));
+                            break;
+                        }
+                      }
+                    },
+                    label: const Text('UPDATE',
+                        style: TextStyle(
+                          height: 1.171875,
+                          fontSize: 24.0,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        )),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -165,29 +415,3 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
