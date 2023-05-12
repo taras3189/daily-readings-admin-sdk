@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/roles.dart';
+import '../screens/role_details_screen.dart';
 
 class RoleListWidget extends StatelessWidget {
   final List<Roles> roles;

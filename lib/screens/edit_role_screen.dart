@@ -5,6 +5,7 @@ import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
 import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../helpers/slide_right_route.dart';
 import '../models/roles.dart';
 
 class EditRoleScreen extends StatelessWidget {
@@ -22,8 +23,8 @@ class EditRoleScreen extends StatelessWidget {
 }
 
 class StatefulEditRoleWidget extends StatefulWidget {
-  const StatefulEditRoleWidget({Key? key, required this.roles})
-      : super(key: key);
+  const StatefulEditRoleWidget({Key? key, required this.roles}) : super(key: key);
+  final Roles roles;
 
   @override
   _EditRoleWidgetState createState() => _EditRoleWidgetState(roles: roles);

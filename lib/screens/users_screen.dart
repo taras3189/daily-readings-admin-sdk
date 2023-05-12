@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/models/users.dart';
+import 'package:daily_readings_admin_sdk/screens/user_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
+import '../helpers/slide_right_route.dart';
 import '../services/api_service.dart';
+import 'add_user_screen.dart';
 import 'home.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -43,7 +46,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
 
     if (errMsg.isNotEmpty) {
       Future.delayed(Duration.zero, () {
-        ScaffoldMessenger.of(context).showSnackBar(snackBar(
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(errMsg),
         ));
       });
@@ -148,8 +151,8 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
               MaterialPageRoute(builder: (context) => const AddUserScreen()));
         },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        child: const Icon(Icons.add),
       ),
     );
   }

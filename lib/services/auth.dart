@@ -13,12 +13,11 @@ class AuthService {
     return res;
   }
 
-  Future<Response?> register(String username, String password, String fullname,
-      String email, String nik) async {
+  Future<Response?> register(String username, String password,
+      String email) async {
     var res = await post(registerUri, body: {
       "username": username,
       "password": password,
-      "fullname": fullname,
       "email": email,
     });
     return res;

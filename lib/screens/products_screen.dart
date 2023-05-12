@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart';
 import '../helpers/slide_right_route.dart';
 import '../models/products.dart';
 import '../services/api_service.dart';
+import '../widgets/product_list_widget.dart';
+import 'add_product_screen.dart';
 import 'home.dart';
 import 'login.dart';
 
@@ -151,8 +155,8 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
                   builder: (context) => const AddProductScreen()));
         },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
         backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        child: const Icon(Icons.add),
       ),
     );
   }

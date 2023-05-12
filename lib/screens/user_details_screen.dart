@@ -1,9 +1,12 @@
 import 'dart:convert';
 
+import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../helpers/slide_right_route.dart';
 import '../models/users.dart';
+import 'edit_user_screen.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   const UserDetailsScreen({Key? key, required this.users}) : super(key: key);

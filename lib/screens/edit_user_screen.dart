@@ -6,6 +6,7 @@ import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../helpers/slide_right_route.dart';
 import '../models/users.dart';
 
 class EditUserScreen extends StatelessWidget {
@@ -139,6 +140,7 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       ),
                       items: roles.map((item) {
                         return DropdownMenuItem(
+                          value: item['id'],
                           child: Text(
                             item['role_name'],
                             style: const TextStyle(
@@ -149,7 +151,6 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                               color: Color.fromARGB(255, 26, 255, 1),
                             ),
                           ),
-                          value: item['id'],
                         );
                       }).toList(),
                       onChanged: (value) {

@@ -5,7 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import '../helpers/slide_right_route.dart';
 import '../services/auth.dart';
+import 'home.dart';
+import 'register.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key, required this.errMsg}) : super(key: key);

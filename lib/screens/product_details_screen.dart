@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../helpers/slide_right_route.dart';
 import '../models/products.dart';
 import '../services/api_service.dart';
+import 'edit_product_screen.dart';
 
 
 class ProductDetailsScreen extends StatelessWidget {
