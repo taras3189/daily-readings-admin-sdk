@@ -31,6 +31,12 @@ class ApiService {
     return res;
   }
 
+  Future<Response> getPermissionList() async {
+    var permissionUrl = Uri.parse('${Constants.BASE_URL}/permissions');
+    final res = await client.get(permissionUrl);
+    return jsonDecode(res.body);
+  }
+
   Future<Response> addUser(int roleId, String email, String password,
       String fullname) async {
     var userUrl = Uri.parse('${Constants.BASE_URL}/users');
