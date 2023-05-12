@@ -1,3 +1,4 @@
+import 'package:daily_readings_admin_sdk/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -22,8 +23,6 @@ void configLoading() {
     ..dismissOnTap = false;
 }
 
-
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -35,8 +34,8 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Material App Bar'),
         ),
-        body: const Center(
-          child: Text('Hello World'),
+        body: const LoginScreen(
+          errMsg: '',
         ),
       ),
     );
