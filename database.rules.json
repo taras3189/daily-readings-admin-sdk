@@ -1,0 +1,7 @@
+{
+  "rules": {
+    ".indexOn": ["Time", "Id"],
+    ".read": true,
+    ".write": false
+  }
+}

@@ -38,10 +38,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   http:
   flutter_secure_storage:
+  firebase_database: ^10.0.9
   http_interceptor:
   email_validator:
   flutter_easyloading:
+  firebase_core: ^2.4.1
+  firebase_auth: ^4.2.5
+  cloud_firestore: ^4.3.1
+  get: ^4.6.5
   intl:
+  get_storage: ^2.1.1
+  json_annotation: ^4.8.1
 
 
 dev_dependencies:
@@ -62,21 +69,21 @@ dev_dependencies:
 
 flutter:
 
-#  fonts:
-#    - family: Roboto
-#      fonts:
-#        - asset: fonts/Roboto-Black.ttf
-#        - asset: fonts/Roboto-BlackItalic.ttf
-#        - asset: fonts/Roboto-Bold.ttf
-#        - asset: fonts/Roboto-BoldItalic.ttf
-#        - asset: fonts/Roboto-Italic.ttf
-#        - asset: fonts/Roboto-Light.ttf
-#        - asset: fonts/Roboto-LightItalic.ttf
-#        - asset: fonts/Roboto-Medium.ttf
-#        - asset: fonts/Roboto-MediumItalic.ttf
-#        - asset: fonts/Roboto-Regular.ttf
-#        - asset: fonts/Roboto-Thin.ttf
-#        - asset: fonts/Roboto-ThinItalic.ttf
+  # fonts:
+  #   - family: Roboto
+  #     fonts:
+  #       - asset: fonts/Roboto-Black.ttf
+  #       - asset: fonts/Roboto-BlackItalic.ttf
+  #       - asset: fonts/Roboto-Bold.ttf
+  #       - asset: fonts/Roboto-BoldItalic.ttf
+  #       - asset: fonts/Roboto-Italic.ttf
+  #       - asset: fonts/Roboto-Light.ttf
+  #       - asset: fonts/Roboto-LightItalic.ttf
+  #       - asset: fonts/Roboto-Medium.ttf
+  #       - asset: fonts/Roboto-MediumItalic.ttf
+  #       - asset: fonts/Roboto-Regular.ttf
+  #       - asset: fonts/Roboto-Thin.ttf
+  #       - asset: fonts/Roboto-ThinItalic.ttf
 
 
   # The following line ensures that the Material Icons font is

@@ -1,12 +1,12 @@
-import 'dart:convert';
-
+import 'package:daily_readings_admin_sdk/services/auth.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 import '../helpers/slide_right_route.dart';
-import '../services/auth.dart';
 import 'home.dart';
 import 'register.dart';
 
@@ -19,7 +19,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: StatefulLoginWidget(errMsg: errMsg,),
+      home: StatefulLoginWidget(
+        errMsg: errMsg,
+      ),
     );
   }
 }
@@ -29,24 +31,30 @@ class StatefulLoginWidget extends StatefulWidget {
   final String errMsg;
 
   @override
-  State<StatefulLoginWidget> createState() => _StatefulLoginWidget(errMsg: errMsg);
+  State<StatefulLoginWidget> createState() =>
+      _StatefulLoginWidget(errMsg: errMsg);
 }
 
 class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   _StatefulLoginWidget({required this.errMsg});
   final String errMsg;
-  final AuthService authService = AuthService();
+  // final AuthService authService = AuthService();
   final storage = const FlutterSecureStorage();
   final _loginFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  // FirestoreController firestore = Get.put(FirestoreController(''));
   bool isLoading = false;
-
+  final AuthController auth = AuthController();
   void checkToken() async {
     var token = await storage.read(key: "token");
     if (token != null) {
       Navigator.pushReplacement(
-          context, SlideRightRoute(page: const HomeScreen(errMsg: '',)));
+          context,
+          SlideRightRoute(
+              page: const HomeScreen(
+            errMsg: '',
+          )));
     }
   }
 
@@ -54,6 +62,12 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   void initState() {
     super.initState();
     checkToken();
+    // if (firestore.uid != null) {
+    //   print('subscribed to ${'self_' + firestore.uid!}');
+    // }
+    // Future.delayed(Duration(seconds: 1), () {
+    //   Get.to(() => firestore.uid!.isNotEmpty?HomeScreen(errMsg: ''):LoginScreen(errMsg: 'Please login to enter the app!'));
+    // });
 
     if (errMsg.isNotEmpty) {
       Future.delayed(Duration.zero, () {
@@ -89,21 +103,25 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _emailController,
                   validator: (value) {
-                    if(value==null) {
+                    if (value == null) {
                       return 'Please enter your email';
                     } else {
-                      return EmailValidator.validate(value) ? null: 'Please fill with the valid email';
+                      return EmailValidator.validate(value)
+                          ? null
+                          : 'Please fill with the valid email';
                     }
                   },
                   onChanged: (value) {},
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -144,7 +162,8 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _passwordController,
                   validator: (value) {
@@ -159,7 +178,8 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -196,11 +216,13 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 235, 235, 235), fontSize: 24.0),
+                      color: Color.fromARGB(255, 235, 235, 235),
+                      fontSize: 24.0),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -213,45 +235,54 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
                     onPressed: () async {
-                      if(_loginFormKey.currentState==null) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      if (_loginFormKey.currentState == null) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
                           content: Text("Wrong email and password!"),
                         ));
                       } else {
                         if (_loginFormKey.currentState!.validate()) {
                           _loginFormKey.currentState!.save();
                           EasyLoading.show();
-                          var res = await authService.login(
+                          auth.loginWithEmail(
                               _emailController.text, _passwordController.text);
 
-                          switch (res!.statusCode) {
-                            case 200:
-                              EasyLoading.dismiss();
-                              var data = jsonDecode(res.body);
-                              storage.write(key: "token", value: data['token']);
-                              Navigator.pushReplacement(
-                                  context, SlideRightRoute(page: const HomeScreen(errMsg: '',)));
-                              break;
-                            case 401:
-                              EasyLoading.dismiss();
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                content: Text("Wrong email or password!"),
-                              ));
-                              break;
-                            default:
-                              EasyLoading.dismiss();
-                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                content: Text("Wrong email or password!"),
-                              ));
-                              break;
-                          }
+                          // var res = await authService.login(
+                          //     _emailController.text, _passwordController.text);
+                          // switch (res!.statusCode) {
+                          //   case 200:
+                          //     EasyLoading.dismiss();
+                          //     var data = jsonDecode(res.body);
+                          //     storage.write(key: "token", value: data['token']);
+                          Navigator.pushReplacement(
+                              context,
+                              SlideRightRoute(
+                                  page: const HomeScreen(
+                                errMsg: '',
+                              )));
+                          //     break;
+                          //   case 401:
+                          EasyLoading.dismiss();
+                          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          //       content: Text("Wrong email or password!"),
+                          //     ));
+                          //     break;
+                          //   default:
+                          //     EasyLoading.dismiss();
+                          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          //       content: Text("Wrong email or password!"),
+                          //     ));
+                          //     break;
+                          // }
                         }
                       }
                     },
@@ -290,8 +321,10 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                           text: 'here ',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(context,
-                                  SlideRightRoute(page: const RegisterScreen()));
+                              Navigator.push(
+                                  context,
+                                  SlideRightRoute(
+                                      page: const RegisterScreen()));
                             },
                           style: const TextStyle(
                             fontSize: 18.0,

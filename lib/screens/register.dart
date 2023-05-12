@@ -7,7 +7,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../helpers/slide_right_route.dart';
-import '../services/auth.dart';
+import '../services/auth_old.dart';
 import 'login.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -31,7 +31,7 @@ class StatefulRegisterWidget extends StatefulWidget {
 }
 
 class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
-  final AuthService authService = AuthService();
+  // final AuthService authService = AuthService();
   final storage = const FlutterSecureStorage();
   final _registerFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -253,34 +253,34 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                       if (_registerFormKey.currentState!.validate()) {
                         _registerFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await authService.register(
-                            _emailController.text, _passwordController.text, _nameController.text);
+                        // var res = await authService.register(
+                        //     _emailController.text, _passwordController.text, _nameController.text);
 
-                        switch (res!.statusCode) {
-                          case 201:
-                            EasyLoading.dismiss();
-                            Navigator.push(
-                                context, SlideRightRoute(page: const LoginScreen(errMsg: 'Registered Successfully',)));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"]) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Registration Failed"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Registration Failed"),
-                            ));
-                            break;
-                        }
+                        // switch (res!.statusCode) {
+                        //   case 201:
+                        //     EasyLoading.dismiss();
+                        //     Navigator.push(
+                        //         context, SlideRightRoute(page: const LoginScreen(errMsg: 'Registered Successfully',)));
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"]) {
+                        //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //       content: Text("Registration Failed"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //       content: Text("Registration Failed"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('REGISTER',
