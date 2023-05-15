@@ -81,7 +81,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Form(
           key: _loginFormKey,
@@ -121,12 +121,12 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                        TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -139,7 +139,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.email,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -148,17 +148,17 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
@@ -179,12 +179,12 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                        TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -197,7 +197,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.password,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -206,17 +206,17 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 235, 235, 235),
+                      color: Color.fromARGB(255, 0, 0, 0),
                       fontSize: 24.0),
                 ),
               ),
@@ -229,19 +229,19 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   child: ElevatedButton.icon(
                     icon: const Icon(
                       Icons.login,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       size: 24.0,
                     ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
-                        side: const BorderSide(
-                            color: Color.fromARGB(255, 128, 255, 0),
-                            width: 1.0),
+                        // side: const BorderSide(
+                        //     color: Color.fromARGB(255, 0, 0, 0),
+                        //     width: 1.0),
                       )),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 255, 200, 0)),
+                          const Color.fromARGB(255, 71, 123, 171)),
                     ),
                     onPressed: () async {
                       if (_loginFormKey.currentState == null) {
@@ -292,7 +292,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                           fontSize: 24.0,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          color: Color.fromARGB(255, 255, 255, 255),
                         )),
                   ),
                 ),
@@ -330,7 +330,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                             fontSize: 18.0,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,
-                            color: Color.fromARGB(255, 128, 255, 0),
+                            color: Color.fromARGB(255, 71, 123, 171),
                           )),
                     ],
                   ),

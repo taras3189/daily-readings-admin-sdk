@@ -42,7 +42,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
         title: const Text(
@@ -55,7 +55,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
             color: Color.fromARGB(255, 26, 255, 1),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
@@ -74,7 +74,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: const Color.fromARGB(255, 252, 142, 54),
+                color: const Color.fromARGB(255, 255, 255, 255),
                 border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
               ),
               padding: const EdgeInsets.all(10),

@@ -61,7 +61,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
         title: const Text(
@@ -74,7 +74,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
             color: Color.fromARGB(255, 26, 255, 1),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
@@ -151,7 +151,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
               MaterialPageRoute(builder: (context) => const AddUserScreen()));
         },
         tooltip: 'Increment',
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         child: const Icon(Icons.add),
       ),
     );
@@ -171,7 +171,7 @@ class UserListWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
           child: Card(
-            color: const Color.fromARGB(255, 252, 142, 54),
+            color: const Color.fromARGB(255, 255, 255, 255),
             shape: RoundedRectangleBorder(
               side: const BorderSide(
                   color: Color.fromARGB(255, 0, 0, 0), width: 1),

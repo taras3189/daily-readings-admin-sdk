@@ -56,7 +56,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
         title: const Text(
@@ -69,11 +69,11 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
             color: Color.fromARGB(255, 26, 255, 1),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       drawer: Drawer(
         child: Container(
-          color: const Color.fromARGB(255, 252, 142, 54),
+          color: const Color.fromARGB(255, 255, 255, 255),
           child: ListView(
             padding: EdgeInsets.zero,
             children: [

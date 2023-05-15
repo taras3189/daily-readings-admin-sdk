@@ -61,7 +61,7 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
         title: const Text(
@@ -74,7 +74,7 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
             color: Color.fromARGB(255, 26, 255, 1),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
@@ -155,7 +155,7 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
                   builder: (context) => const AddProductScreen()));
         },
         tooltip: 'Increment',
-        backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         child: const Icon(Icons.add),
       ),
     );

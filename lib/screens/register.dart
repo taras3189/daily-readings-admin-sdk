@@ -42,7 +42,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 252, 142, 54),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Form(
           key: _registerFormKey,

@@ -16,7 +16,7 @@ class ProductListWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
           child: Card(
-            color: const Color.fromARGB(255, 252, 142, 54),
+            color: const Color.fromARGB(255, 255, 255, 255),
             shape: RoundedRectangleBorder(
               side: const BorderSide(
                   color: Color.fromARGB(255, 0, 0, 0), width: 1),
