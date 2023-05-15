@@ -78,17 +78,17 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    errorStyle: TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
                     labelText: 'Email',
                     hintText: 'Email',
@@ -96,7 +96,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.email,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -105,17 +105,17 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
@@ -135,25 +135,25 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   obscureText: true,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    errorStyle: TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
-                    labelText: 'Kata Sandi',
-                    hintText: 'Kata Sandi',
+                    labelText: 'Password',
+                    hintText: 'Password',
                     prefixIcon: Padding(
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.password,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -162,17 +162,17 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
@@ -190,16 +190,16 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 235, 235, 235), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
                     labelText: 'Name',
                     hintText: 'Name',
@@ -207,7 +207,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.perm_identity,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -216,17 +216,17 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
@@ -237,17 +237,17 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   child: ElevatedButton.icon(
                     icon: const Icon(
                       Icons.update,
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       size: 24.0,
                     ),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
+                            // side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
                           )),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color.fromARGB(255, 255, 200, 0)),
+                          const Color.fromARGB(255, 71, 123, 171)),
                     ),
                     onPressed: () async {
                       if (_registerFormKey.currentState!.validate()) {
@@ -289,7 +289,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                           fontSize: 24.0,
                           fontFamily: 'Roboto',
                           fontWeight: FontWeight.w400,
-                          color: Color.fromARGB(255, 0, 0, 0),
+                          color: Color.fromARGB(255, 255, 255, 255),
                         )),
                   ),
                 ),
@@ -312,7 +312,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                             fontSize: 18.0,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w300,
-                            color: Color.fromARGB(255, 235, 235, 235),
+                            color: Color.fromARGB(255, 0, 0, 0),
                           )),
                       TextSpan(
                           text: 'here ',
@@ -325,7 +325,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                             fontSize: 18.0,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w700,
-                            color: Color.fromARGB(255, 128, 255, 0),
+                            color: Color.fromARGB(255, 71, 123, 171),
                           )),
                     ],
                   ),
