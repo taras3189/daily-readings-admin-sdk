@@ -58,7 +58,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
+        iconTheme: const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         title: const Text(
           'Flutter Auth Role',
           style: TextStyle(
@@ -66,10 +66,10 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
             fontSize: 18.0,
             fontFamily: 'Roboto Condensed',
             fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 26, 255, 1),
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 71, 123, 171),
       ),
       drawer: Drawer(
         child: Container(
@@ -79,7 +79,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
             children: [
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 71, 123, 171),
                 ),
                 child: Center(
                   child: Text(
@@ -90,7 +90,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 26, 255, 1),
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
                   ),
                 ),
@@ -98,8 +98,8 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    left: BorderSide(
-                        width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
+                    // left: BorderSide(
+                    //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
                         width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
@@ -112,7 +112,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 26, 255, 1),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                   onTap: () {
@@ -128,8 +128,8 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    left: BorderSide(
-                        width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
+                    // left: BorderSide(
+                    //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
                         width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
@@ -142,7 +142,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 26, 255, 1),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                   onTap: () {
@@ -158,8 +158,8 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    left: BorderSide(
-                        width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
+                    // left: BorderSide(
+                    //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
                         width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
@@ -172,7 +172,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 26, 255, 1),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                   onTap: () {
@@ -188,8 +188,8 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
               Container(
                 decoration: const BoxDecoration(
                   border: Border(
-                    left: BorderSide(
-                        width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
+                    // left: BorderSide(
+                    //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
                         width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
@@ -202,7 +202,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w500,
-                      color: Color.fromARGB(255, 26, 255, 1),
+                      color: Color.fromARGB(255, 0, 0, 0),
                     ),
                   ),
                   onTap: () async {

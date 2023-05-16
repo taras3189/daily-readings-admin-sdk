@@ -121,7 +121,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                        TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -179,7 +179,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                        TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),

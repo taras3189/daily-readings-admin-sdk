@@ -78,7 +78,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -135,7 +135,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   obscureText: true,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 71, 123, 171)),
+                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -189,7 +189,7 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
