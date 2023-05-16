@@ -71,13 +71,13 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
             fontSize: 18.0,
             fontFamily: 'Roboto Condensed',
             fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 26, 255, 1),
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 71, 123, 171),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
-              color: Color.fromARGB(255, 26, 255, 1)),
+              color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () =>
               Navigator.pushReplacement(context, SlideRightRoute(page: const HomeScreen(errMsg: '',))),
         ),
