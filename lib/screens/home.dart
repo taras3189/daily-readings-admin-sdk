@@ -101,7 +101,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     // left: BorderSide(
                     //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
-                        width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
+                        width: 0.5, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ),
                 child: ListTile(
@@ -131,7 +131,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     // left: BorderSide(
                     //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
-                        width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
+                        width: 0.5, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ),
                 child: ListTile(
@@ -161,7 +161,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     // left: BorderSide(
                     //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
-                        width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
+                        width: 0.5, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ),
                 child: ListTile(
@@ -191,7 +191,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     // left: BorderSide(
                     //     width: 6.0, color: Color.fromARGB(255, 0, 0, 0)),
                     bottom: BorderSide(
-                        width: 1.0, color: Color.fromARGB(255, 0, 0, 0)),
+                        width: 0.5, color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ),
                 child: ListTile(
