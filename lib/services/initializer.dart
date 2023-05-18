@@ -12,8 +12,10 @@ class Initializer {
   static Future<void> init() async {
     try {
       WidgetsFlutterBinding.ensureInitialized();
-     
-
+      await Firebase.initializeApp(
+        options: options
+      );
+      await _initStorage();
       _initScreenPreference();
       _initApis();
     } catch (err) {
@@ -32,9 +34,9 @@ class Initializer {
     );
   }
 
-  // static Future<void> _initStorage() async {
-  //   await GetStorage.init();
-  // }
+  static Future<void> _initStorage() async {
+    await GetStorage.init();
+  }
 
   static void _initScreenPreference() {
     SystemChrome.setPreferredOrientations([

@@ -1,6 +1,10 @@
+import 'package:daily_readings_admin_sdk/screens/login.dart';
 import 'package:daily_readings_admin_sdk/services/storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../screens/home.dart';
 import 'firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -10,11 +14,7 @@ class AuthController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
-    firestoreController = FirestoreController(getUID());
-    Get.put<FirestoreController>(
-      firestoreController,
-    );
+    firestoreController = Get.put(FirestoreController(getUID()));
   }
 
   String? getUID() {
@@ -31,27 +31,10 @@ class AuthController extends GetxController {
     }
   }
 
-  void logOut() async {
+  Future logOut() async {
     await FirebaseAuth.instance.signOut();
-    firestoreController.reInit('');
-    firestoreController.initData();
-    await Storage.removeValue('uid');
-    await Get.toNamed('/home');
+    await Storage.clearStorage();
   }
-
-  // sendVerificationEmail() async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-
-  //   if (user != null && !user.emailVerified) {
-  //     // var actionCodeSettings = ActionCodeSettings(
-  //     //   url: 'https://www.example.com/?email=${user.email}',
-  //     //   dynamicLinkDomain: "example.page.link",
-  //     //   handleCodeInApp: true,
-  //     // );
-
-  //     await user.sendEmailVerification();
-  //   }
-  // }
 
   Future<String?> registerWithEmail(String email, String password) async {
     try {
@@ -73,17 +56,27 @@ class AuthController extends GetxController {
     }
   }
 
-  void loginWithEmail(String email, String password) async {
+  loginWithEmail(String email, String password, errorcb) async {
+    EasyLoading.show();
     try {
       final userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
-
       firestoreController.reInit(userCredential.user!.uid, userCredential.user);
       Storage.saveValueIfNull('uid', userCredential.user?.uid);
+      EasyLoading.dismiss();
+      Get.to(() => const HomeScreen(errMsg: ''));
     } on FirebaseAuthException catch (e) {
+      print('${e.message}');
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {}
+        errorcb('No user found for that email.');
+        EasyLoading.dismiss();
+      } else if (e.code == 'wrong-password') {
+        errorcb('Wrong password');
+        EasyLoading.dismiss();
+      } else {
+        errorcb(e.message);
+        EasyLoading.dismiss();
+      }
     }
   }
 }
