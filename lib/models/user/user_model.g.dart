@@ -11,7 +11,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       fontFamily: json['fontFamily'] as String? ?? 'Roboto',
       fontSize: json['fontSize'] as num? ?? 20.0,
       function: json['function'] as String? ?? '',
-      fontHeight: json['function'] as double? ?? 1.0,
+      fontHeight: json['fontHeight'] as double? ?? 1.0,
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{

@@ -43,32 +43,23 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   final _loginFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  // FirestoreController firestore = Get.put(FirestoreController(''));
+  FirestoreController firestore = Get.find();
   bool isLoading = false;
-  final AuthController auth = AuthController();
-  void checkToken() async {
-    var token = await storage.read(key: "token");
-    if (token != null) {
-      Navigator.pushReplacement(
-          context,
-          SlideRightRoute(
-              page: const HomeScreen(
-            errMsg: '',
-          )));
+  AuthController auth = Get.find();
+
+  void checkIfLogined() async {
+    if (auth.getUID() != null && auth.getUID() != '') {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.to(() => const HomeScreen(errMsg: ''));
+      });
     }
   }
 
   @override
   void initState() {
-    super.initState();
-    checkToken();
-    // if (firestore.uid != null) {
-    //   print('subscribed to ${'self_' + firestore.uid!}');
-    // }
-    // Future.delayed(Duration(seconds: 1), () {
-    //   Get.to(() => firestore.uid!.isNotEmpty?HomeScreen(errMsg: ''):LoginScreen(errMsg: 'Please login to enter the app!'));
-    // });
+    checkIfLogined();
 
+    super.initState();
     if (errMsg.isNotEmpty) {
       Future.delayed(Duration.zero, () {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -216,8 +207,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                      fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
@@ -252,37 +242,14 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                       } else {
                         if (_loginFormKey.currentState!.validate()) {
                           _loginFormKey.currentState!.save();
-                          EasyLoading.show();
-                          auth.loginWithEmail(
-                              _emailController.text, _passwordController.text);
 
-                          // var res = await authService.login(
-                          //     _emailController.text, _passwordController.text);
-                          // switch (res!.statusCode) {
-                          //   case 200:
-                          //     EasyLoading.dismiss();
-                          //     var data = jsonDecode(res.body);
-                          //     storage.write(key: "token", value: data['token']);
-                          Navigator.pushReplacement(
-                              context,
-                              SlideRightRoute(
-                                  page: const HomeScreen(
-                                errMsg: '',
-                              )));
-                          //     break;
-                          //   case 401:
-                          EasyLoading.dismiss();
-                          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          //       content: Text("Wrong email or password!"),
-                          //     ));
-                          //     break;
-                          //   default:
-                          //     EasyLoading.dismiss();
-                          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          //       content: Text("Wrong email or password!"),
-                          //     ));
-                          //     break;
-                          // }
+                          await auth.loginWithEmail(
+                              _emailController.text, _passwordController.text,
+                              (text) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(text),
+                            ));
+                          });
                         }
                       }
                     },

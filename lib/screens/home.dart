@@ -1,6 +1,7 @@
 import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
+import 'package:daily_readings_admin_sdk/services/auth.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -39,7 +40,9 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
   _StatefulHomeWidget({required this.errMsg});
   final String errMsg;
   final storage = const FlutterSecureStorage();
-  // FirestoreController firestore = Get.find();
+  FirestoreController firestore = Get.find();
+  final AuthController auth = AuthController();
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +61,8 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         title: const Text(
           'Flutter Auth Role',
           style: TextStyle(
@@ -206,13 +210,10 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     ),
                   ),
                   onTap: () async {
-                    await storage.deleteAll();
-                    Navigator.push(
-                        context,
-                        SlideRightRoute(
-                            page: const LoginScreen(
+                    await auth.logOut();
+                    Get.to(() => const LoginScreen(
                           errMsg: 'User logged out',
-                        )));
+                        ));
                   },
                 ),
               ),
@@ -220,19 +221,19 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
           ),
         ),
       ),
-      body: const Center(
-        child: Text(
-          'Welcome Home!\nThis is the Role Based Authentication\nwith Permissions Apps ',
-          textAlign: TextAlign.center,
-          overflow: TextOverflow.visible,
-          style: TextStyle(
-            height: 1.171875,
-            fontSize: 18.0,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 0, 0, 0),
-          ),
-        ),
+      body: Center(
+        child: Obx(() => Text(
+              'Welcome Home!\nThis is the Role Based Authentication\nwith Permissions Apps email ${firestore.userDataModel.value.email} ${firestore.userDataModel.value.function}',
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.visible,
+              style: TextStyle(
+                height: 1.171875,
+                fontSize: 18.0,
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 0, 0, 0),
+              ),
+            )),
       ),
     );
   }
