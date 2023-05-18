@@ -36,23 +36,22 @@ class AuthController extends GetxController {
     await Storage.clearStorage();
   }
 
-  Future<String?> registerWithEmail(String email, String password) async {
+  Future<String?> registerWithEmail(
+      String email, String password, errorcb) async {
+    EasyLoading.show();
     try {
       // ignore: prefer_final_locals
       var userCredential = await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       firestoreController.reInit(userCredential.user!.uid, userCredential.user);
+      EasyLoading.dismiss();
       return userCredential.user?.uid;
       // initFirestore(userCredential.user.uid);
       // stateChanged();
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
+      errorcb(e.message);
+      EasyLoading.dismiss();
+      return null;
     }
   }
 

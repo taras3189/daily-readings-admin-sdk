@@ -48,6 +48,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   AuthController auth = Get.find();
 
   void checkIfLogined() async {
+    print('auth.getUID() ${auth.getUID()}');
     if (auth.getUID() != null && auth.getUID() != '') {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Get.to(() => const HomeScreen(errMsg: ''));

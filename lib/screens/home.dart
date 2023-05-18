@@ -211,7 +211,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                   ),
                   onTap: () async {
                     await auth.logOut();
-                    Get.to(() => const LoginScreen(
+                    Get.offAll(() => const LoginScreen(
                           errMsg: 'User logged out',
                         ));
                   },

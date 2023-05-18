@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
       builder: EasyLoading.init(),
       title: 'Material App',
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
       home:  const LoginScreen(
         errMsg: '',
       ),

@@ -115,11 +115,7 @@ class FirestoreController extends GetxController {
     return users.data();
   }
 
-  Future<Map<String, dynamic>?> getBibleTitle(
-      {required String bookName}) async {
-    var data = await firestore.collection('bible_titles').doc(bookName).get();
-    return data.data();
-  }
+  
 
   Future<QuerySnapshot<UserModel>> getUsersByID(List uids) async {
     var users = await firestore
