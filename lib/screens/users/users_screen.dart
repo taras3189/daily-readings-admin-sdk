@@ -1,14 +1,18 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_readings_admin_sdk/models/users.dart';
-import 'package:daily_readings_admin_sdk/screens/user_details_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/users/user_details_screen.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart';
-import '../helpers/slide_right_route.dart';
-import '../services/api_service.dart';
+import '../../helpers/slide_right_route.dart';
+import '../../models/user/user_model.dart';
+import '../../services/api_service.dart';
 import 'add_user_screen.dart';
-import 'home.dart';
+import '../home/home.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({Key? key, required this.errMsg}) : super(key: key);
@@ -17,10 +21,7 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulUsersWidget(errMsg: errMsg),
-    );
+    return  StatefulUsersWidget(errMsg: errMsg);
   }
 }
 
@@ -38,7 +39,8 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
 
   final String errMsg;
   final ApiService api = ApiService();
-  late List<Users> users = [];
+  late List<UserModel> users = [];
+  FirestoreController firestore = Get.find();
 
   @override
   void initState() {
@@ -53,9 +55,9 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
     }
   }
 
-  Future<Response> get listUsers async {
+  Future<QuerySnapshot<UserModel>> get listUsers async {
     EasyLoading.show();
-    return await api.getUserList();
+    return await firestore.getAllUsers();
   }
 
   @override
@@ -91,13 +93,10 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
           future: listUsers,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              Response resp = snapshot.data as Response;
-              if (resp.statusCode == 200) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.hasData) {
                 EasyLoading.dismiss();
-                final jsonMap = json.decode(resp.body);
-                users = (jsonMap as List)
-                    .map((userItem) => Users.fromJson(userItem))
-                    .toList();
+                users = snapshot.data!.docs.map((e) => e.data()).toList();
                 return users.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.symmetric(
@@ -122,16 +121,6 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
                           ),
                         ),
                       );
-              } else if (resp.statusCode == 401) {
-                EasyLoading.dismiss();
-                Future.delayed(Duration.zero, () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                errMsg: 'Permission Denied',
-                              )));
-                });
               }
             } else if (snapshot.hasError) {
               EasyLoading.dismiss();
@@ -151,7 +140,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
               MaterialPageRoute(builder: (context) => const AddUserScreen()));
         },
         tooltip: 'Increment',
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 46, 11, 246),
         child: const Icon(Icons.add),
       ),
     );
@@ -159,8 +148,7 @@ class _StatefulUsersWidget extends State<StatefulUsersWidget> {
 }
 
 class UserListWidget extends StatelessWidget {
-  final List<Users> users;
-
+  final List<UserModel> users;
   const UserListWidget({Key? key, required this.users}) : super(key: key);
 
   @override
@@ -193,7 +181,7 @@ class UserListWidget extends StatelessWidget {
                   color: Color.fromARGB(255, 0, 0, 0),
                 ),
                 title: Text(
-                  users[index].fullname.toString(),
+                  users[index].function.toString(),
                   style: const TextStyle(
                     fontFamily: 'Roboto',
                     color: Color.fromARGB(255, 0, 0, 0),

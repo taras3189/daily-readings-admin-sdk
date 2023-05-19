@@ -7,7 +7,7 @@ import '../helpers/slide_right_route.dart';
 import '../models/roles.dart';
 import '../widgets/role_list_widget.dart';
 import 'add_role_screen.dart';
-import 'home.dart';
+import 'home/home.dart';
 import 'login.dart';
 
 class RolesScreen extends StatelessWidget {
@@ -17,11 +17,8 @@ class RolesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulRolesWidget(
-        errMsg: errMsg,
-      ),
+    return StatefulRolesWidget(
+      errMsg: errMsg,
     );
   }
 }
@@ -56,7 +53,7 @@ class _StatefulRolesWidget extends State<StatefulRolesWidget> {
   }
 
   Future<Response> get listRoles async {
-    EasyLoading.show();
+    // EasyLoading.show();
     return await api.getRoleList();
   }
 
@@ -159,10 +156,8 @@ class _StatefulRolesWidget extends State<StatefulRolesWidget> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const AddRoleScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddRoleScreen()));
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
@@ -171,21 +166,3 @@ class _StatefulRolesWidget extends State<StatefulRolesWidget> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,17 +5,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../helpers/slide_right_route.dart';
 import '../services/api_service.dart';
 
-
 class AddRoleScreen extends StatelessWidget {
   const AddRoleScreen({Key? key}) : super(key: key);
   static const String _title = 'Add Role';
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: StatefulAddRoleWidget(),
-    );
+    return StatefulAddRoleWidget();
   }
 }
 
@@ -79,7 +75,7 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _roleNameController,
                   validator: (value) {
@@ -94,7 +90,7 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -136,7 +132,7 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _roleDescriptionController,
                   validator: (value) {
@@ -150,7 +146,7 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -192,7 +188,7 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -205,11 +201,11 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(
-                                color: Color.fromARGB(255, 128, 255, 0),
-                                width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
@@ -217,15 +213,18 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                       if (_addRoleFormKey.currentState!.validate()) {
                         _addRoleFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.addRole(
-                            _roleNameController.text,
+                        var res = await api.addRole(_roleNameController.text,
                             _roleDescriptionController.text);
 
                         switch (res.statusCode) {
                           case 201:
                             EasyLoading.dismiss();
                             Navigator.pushReplacement(
-                                context, SlideRightRoute(page: const RolesScreen(errMsg: 'Role Added Successfully',)));
+                                context,
+                                SlideRightRoute(
+                                    page: const RolesScreen(
+                                  errMsg: 'Role Added Successfully',
+                                )));
                             break;
                           case 400:
                             EasyLoading.dismiss();
@@ -243,7 +242,8 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                             break;
                           case 403:
                             EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text("Permission Denied"),
                             ));
                             break;

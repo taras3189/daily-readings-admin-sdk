@@ -115,8 +115,6 @@ class FirestoreController extends GetxController {
     return users.data();
   }
 
-  
-
   Future<QuerySnapshot<UserModel>> getUsersByID(List uids) async {
     var users = await firestore
         .collection('users')
@@ -125,6 +123,22 @@ class FirestoreController extends GetxController {
           toFirestore: (user, _) => user.toJson(),
         )
         .where(FieldPath.documentId, whereIn: uids)
+        .get();
+
+    return users;
+  }
+  deleteAccount(uid) async {
+    await firestore.collection('users').doc(uid).delete();
+  }
+
+
+  Future<QuerySnapshot<UserModel>> getAllUsers() async {
+    var users = await firestore
+        .collection('users')
+        .withConverter<UserModel>(
+          fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
+          toFirestore: (user, _) => user.toJson(),
+        )
         .get();
 
     return users;

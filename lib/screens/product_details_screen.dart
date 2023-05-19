@@ -9,21 +9,17 @@ import '../models/products.dart';
 import '../services/api_service.dart';
 import 'edit_product_screen.dart';
 
-
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({Key? key, required this.products}) : super(key: key);
+  const ProductDetailsScreen({Key? key, required this.products})
+      : super(key: key);
   final Products products;
   static const String _title = 'Users';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulProductDetailsWidget(products: products),
-    );
+    return StatefulProductDetailsWidget(products: products);
   }
 }
-
 
 class StatefulProductDetailsWidget extends StatefulWidget {
   const StatefulProductDetailsWidget({Key? key, required this.products})
@@ -32,7 +28,8 @@ class StatefulProductDetailsWidget extends StatefulWidget {
 
   @override
   // ignore: no_logic_in_create_state
-  _ProductDetailsWidgetState createState() => _ProductDetailsWidgetState(products: products);
+  _ProductDetailsWidgetState createState() =>
+      _ProductDetailsWidgetState(products: products);
 }
 
 class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
@@ -62,7 +59,11 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
           onPressed: () => Navigator.pushReplacement(
-              context, SlideRightRoute(page: const ProductsScreen(errMsg: '',))),
+              context,
+              SlideRightRoute(
+                  page: const ProductsScreen(
+                errMsg: '',
+              ))),
         ),
       ),
       body: SingleChildScrollView(
@@ -73,7 +74,8 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
                     color: const Color.fromARGB(255, 255, 255, 255),
-                    border: Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
+                    border:
+                        Border.all(color: const Color.fromARGB(255, 0, 0, 0)),
                   ),
                   padding: const EdgeInsets.all(10.0),
                   width: 440,
@@ -121,8 +123,10 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                             Text('Product Price:',
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.8))),
-                            Text(NumberFormat.currency(locale: 'id', symbol: 'Rp')
-                                .format(widget.products.prodPrice),
+                            Text(
+                                NumberFormat.currency(
+                                        locale: 'id', symbol: 'Rp')
+                                    .format(widget.products.prodPrice),
                                 style: Theme.of(context).textTheme.subtitle1)
                           ],
                         ),
@@ -145,16 +149,16 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                   ),
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
+                                            RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5.0),
-                                          side: const BorderSide(
-                                              color:
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      side: const BorderSide(
+                                          color:
                                               Color.fromARGB(255, 128, 255, 0),
-                                              width: 1.0),
-                                        )),
+                                          width: 1.0),
+                                    )),
                                     backgroundColor: MaterialStateProperty.all<
-                                        Color>(
+                                            Color>(
                                         const Color.fromARGB(255, 255, 200, 0)),
                                   ),
                                   onPressed: () async {
@@ -162,8 +166,8 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                         context,
                                         SlideRightRoute(
                                             page: EditProductScreen(
-                                              products: products,
-                                            )));
+                                          products: products,
+                                        )));
                                   },
                                   label: const Text('EDIT',
                                       style: TextStyle(
@@ -190,16 +194,16 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                   ),
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
+                                            RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5.0),
-                                          side: const BorderSide(
-                                              color:
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      side: const BorderSide(
+                                          color:
                                               Color.fromARGB(255, 128, 255, 0),
-                                              width: 1.0),
-                                        )),
+                                          width: 1.0),
+                                    )),
                                     backgroundColor: MaterialStateProperty.all<
-                                        Color>(
+                                            Color>(
                                         const Color.fromARGB(255, 255, 200, 0)),
                                   ),
                                   onPressed: () async {
@@ -245,13 +249,18 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
               child: const Text('Yes'),
               onPressed: () async {
                 EasyLoading.show();
-                var res = await api.deleteProduct(widget.products.id.toString());
+                var res =
+                    await api.deleteProduct(widget.products.id.toString());
 
                 switch (res.statusCode) {
                   case 200:
                     EasyLoading.dismiss();
                     Navigator.pushReplacement(
-                        context, SlideRightRoute(page: const ProductsScreen(errMsg: 'Deleted Successfully',)));
+                        context,
+                        SlideRightRoute(
+                            page: const ProductsScreen(
+                          errMsg: 'Deleted Successfully',
+                        )));
                     break;
                   case 400:
                     EasyLoading.dismiss();

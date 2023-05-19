@@ -12,10 +12,7 @@ class AddProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: StatefulAddProductWidget(),
-    );
+    return StatefulAddProductWidget();
   }
 }
 
@@ -81,7 +78,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productNameController,
                   validator: (value) {
@@ -95,7 +92,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -137,7 +134,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productDescriptionController,
                   validator: (value) {
@@ -151,7 +148,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -193,7 +190,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productImageController,
                   validator: (value) {
@@ -207,7 +204,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                   keyboardType: TextInputType.url,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -249,7 +246,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productPriceController,
                   validator: (value) {
@@ -263,7 +260,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -305,7 +302,7 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -318,11 +315,11 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(
-                                color: Color.fromARGB(255, 128, 255, 0),
-                                width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
@@ -340,7 +337,11 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                           case 201:
                             EasyLoading.dismiss();
                             Navigator.pushReplacement(
-                                context, SlideRightRoute(page: const ProductsScreen(errMsg: 'Product Added Successfully',)));
+                                context,
+                                SlideRightRoute(
+                                    page: const ProductsScreen(
+                                  errMsg: 'Product Added Successfully',
+                                )));
                             break;
                           case 400:
                             EasyLoading.dismiss();
@@ -358,7 +359,8 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                             break;
                           case 403:
                             EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text("Permission Denied"),
                             ));
                             break;

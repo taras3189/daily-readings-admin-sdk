@@ -1,14 +1,14 @@
 import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
-import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/auth.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
-import '../helpers/slide_right_route.dart';
-import 'login.dart';
+import '../../helpers/slide_right_route.dart';
+import '../login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key, required this.errMsg}) : super(key: key);
@@ -17,11 +17,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulHomeWidget(
-        errMsg: errMsg,
-      ),
+    return StatefulHomeWidget(
+      errMsg: errMsg,
     );
   }
 }
@@ -222,17 +219,23 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
         ),
       ),
       body: Center(
-        child: Obx(() => Text(
-              'Welcome Home!\nThis is the Role Based Authentication\nwith Permissions Apps email ${firestore.userDataModel.value.email} ${firestore.userDataModel.value.function}',
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                height: 1.171875,
-                fontSize: 18.0,
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.w500,
-                color: Color.fromARGB(255, 0, 0, 0),
-              ),
+        child: Obx(() => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var key in firestore.userDataModel.value.toJson().keys)
+                  Text(
+                    '$key: ${firestore.userDataModel.value.toJson()[key]}',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                      height: 1.171875,
+                      fontSize: 18.0,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w500,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+              ],
             )),
       ),
     );

@@ -1,32 +1,32 @@
 import 'dart:convert';
 
-import 'package:daily_readings_admin_sdk/screens/user_details_screen.dart';
-import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
+import 'package:daily_readings_admin_sdk/helpers/slide_right_route.dart';
+import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
 import 'package:daily_readings_admin_sdk/services/api_service.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../helpers/slide_right_route.dart';
-import '../models/users.dart';
+import 'package:get/get.dart';
+
+import 'user_details_screen.dart';
+import 'users_screen.dart';
 
 class EditUserScreen extends StatelessWidget {
   const EditUserScreen({Key? key, required this.users}) : super(key: key);
-  final Users users;
+  final UserModel users;
   static const String _title = 'Edit User';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulEditUserWidget(users: users),
-    );
+    return StatefulEditUserWidget(users: users);
   }
 }
 
 class StatefulEditUserWidget extends StatefulWidget {
   const StatefulEditUserWidget({Key? key, required this.users})
       : super(key: key);
-  final Users users;
+  final UserModel users;
 
   @override
   _EditUserWidgetState createState() => _EditUserWidgetState(users: users);
@@ -35,28 +35,28 @@ class StatefulEditUserWidget extends StatefulWidget {
 class _EditUserWidgetState extends State<StatefulEditUserWidget> {
   _EditUserWidgetState({required this.users});
 
-  final Users users;
-  List<dynamic> roles = [];
+  final UserModel users;
   final ApiService api = ApiService();
   final _editUserFormKey = GlobalKey<FormState>();
   int? _valRole;
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
+  FirestoreController firestore = Get.find();
 
-  void loadRolesList() async {
-    final resp = await api.getRoleList();
-    setState(() {
-      roles = jsonDecode(resp.body);
-    });
-  }
+  List<String> roles = [
+    'App Admin',
+    'Language Admin',
+    'Group Admin',
+    'User',
+  ];
 
   @override
   void initState() {
     super.initState();
-    loadRolesList();
-    _valRole = users.roles!.id;
+
+    // _valRole = users.roles!.id;
     _emailController.text = users.email.toString();
-    _nameController.text = users.fullname.toString();
+    _nameController.text = users.name.toString();
   }
 
   @override
@@ -127,7 +127,7 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       dropdownColor: const Color.fromARGB(255, 0, 0, 0),
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       isExpanded: true,
-                      value: _valRole,
+                      value: roles[_valRole ?? 0],
                       hint: const Text(
                         'Select Role',
                         style: TextStyle(
@@ -140,9 +140,9 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       ),
                       items: roles.map((item) {
                         return DropdownMenuItem(
-                          value: item['id'],
+                          value: item,
                           child: Text(
-                            item['role_name'],
+                            item,
                             style: const TextStyle(
                               height: 2.171875,
                               fontSize: 24,
@@ -155,7 +155,7 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       }).toList(),
                       onChanged: (value) {
                         setState(() {
-                          _valRole = value as int;
+                          _valRole = roles.indexOf(value!);
                         });
                       },
                     ),
@@ -337,9 +337,9 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -352,9 +352,11 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
@@ -362,40 +364,50 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
                       if (_editUserFormKey.currentState!.validate()) {
                         _editUserFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.updateUser(
-                            users.id, _valRole!, _emailController.text, _nameController.text);
+                        firestore.updateUserById(users.uid, {
+                          'name': _nameController.text,
+                          'email': _emailController.text,
+                          'function': roles[_valRole!],
+                        });
+                        EasyLoading.dismiss();
+                        Navigator.pushReplacement(
+                            context,
+                            SlideRightRoute(
+                                page: const UsersScreen(
+                              errMsg: 'Updated Successfully',
+                            )));
+                        // var res = await api.updateUser(
+                        //     users.id, _valRole!, _emailController.text, _nameController.text);
 
-                        switch (res.statusCode) {
-                          case 200:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context, SlideRightRoute(page: const UsersScreen(errMsg: 'Updated Successfully',)));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"] != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                        }
+                        // switch (res.statusCode) {
+                        //   case 200:
+
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"] != null) {
+                        //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //       content: Text("Update Failed"),
+                        //     ));
+                        //     break;
+                        //   case 403:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //       content: Text("Permission Denied"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        //       content: Text("Update Failed"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('UPDATE',

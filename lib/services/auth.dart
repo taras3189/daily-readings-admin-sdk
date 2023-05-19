@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../screens/home.dart';
+import '../screens/home/home.dart';
 import 'firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -78,4 +78,6 @@ class AuthController extends GetxController {
       }
     }
   }
+ 
+
 }

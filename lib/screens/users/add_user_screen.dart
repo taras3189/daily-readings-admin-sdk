@@ -1,11 +1,14 @@
 import 'dart:convert';
-import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
+import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
+import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
+import 'package:daily_readings_admin_sdk/services/auth.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../helpers/slide_right_route.dart';
-import '../services/api_service.dart';
-
+import 'package:get/get.dart';
+import '../../helpers/slide_right_route.dart';
+import '../../services/api_service.dart';
 
 class AddUserScreen extends StatelessWidget {
   const AddUserScreen({Key? key}) : super(key: key);
@@ -13,10 +16,7 @@ class AddUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: StatefulAddUsersWidget(),
-    );
+    return StatefulAddUsersWidget();
   }
 }
 
@@ -28,34 +28,32 @@ class StatefulAddUsersWidget extends StatefulWidget {
 }
 
 class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
-  List<dynamic> roles = [];
+  List<String> roles = [
+    'App Admin',
+    'Language Admin',
+    'Group Admin',
+    'User',
+  ];
   final ApiService api = ApiService();
   final _addUserFormKey = GlobalKey<FormState>();
   int? _valRole;
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
   final _nameController = TextEditingController();
-
-
-  void loadRolesList() async {
-    final resp = await api.getRoleList();
-    setState(() {
-      roles = jsonDecode(resp.body);
-    });
-  }
+  FirestoreController firestore = Get.find();
+  AuthController auth = Get.find();
 
   @override
   void initState() {
     super.initState();
-    loadRolesList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromARGB(255, 26, 255, 1)),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         title: const Text(
           'Add User',
           style: TextStyle(
@@ -63,15 +61,19 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
             fontSize: 18.0,
             fontFamily: 'Roboto Condensed',
             fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 26, 255, 1),
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 71, 123, 171),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
-              color: Color.fromARGB(255, 26, 255, 1)),
+              color: Color.fromARGB(255, 255, 255, 255)),
           onPressed: () => Navigator.pushReplacement(
-              context, SlideRightRoute(page: const UsersScreen(errMsg: '',))),
+              context,
+              SlideRightRoute(
+                  page: const UsersScreen(
+                errMsg: '',
+              ))),
         ),
       ),
       body: SingleChildScrollView(
@@ -96,7 +98,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: InputDecorator(
                   decoration: const InputDecoration(
                     icon: Icon(
@@ -113,45 +115,45 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                   ),
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                        dropdownColor: const Color.fromARGB(255, 0, 0, 0),
-                        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                        isExpanded: true,
-                        value: _valRole,
-                        hint: const Text(
-                          'Select Role',
-                          style: TextStyle(
-                              height: 1.171875,
-                              fontSize: 24.0,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromARGB(255, 0, 0, 0)),
+                    dropdownColor: const Color.fromARGB(255, 0, 0, 0),
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    isExpanded: true,
+                    value: roles[_valRole ?? 0],
+                    hint: const Text(
+                      'Select Role',
+                      style: TextStyle(
+                          height: 1.171875,
+                          fontSize: 24.0,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w300,
+                          color: Color.fromARGB(255, 0, 0, 0)),
+                    ),
+                    items: roles.map((item) {
+                      return DropdownMenuItem(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            height: 2.171875,
+                            fontSize: 24.0,
+                            fontFamily: 'Roboto',
+                            fontWeight: FontWeight.w300,
+                            color: Color.fromARGB(255, 26, 255, 1),
+                          ),
                         ),
-                        items: roles.map((item) {
-                          return DropdownMenuItem(
-                            value: item['id'],
-                            child: Text(
-                              item['role_name'],
-                              style: const TextStyle(
-                                height: 2.171875,
-                                fontSize: 24.0,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.w300,
-                                color: Color.fromARGB(255, 26, 255, 1),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            _valRole = value as int;
-                          });
-                        },
-                      )),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _valRole = roles.indexOf(value!);
+                      });
+                    },
+                  )),
                 ),
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _emailController,
                   validator: (value) {
@@ -168,7 +170,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -210,7 +212,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _passwordController,
                   validator: (value) {
@@ -227,7 +229,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -269,7 +271,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _nameController,
                   validator: (value) {
@@ -283,7 +285,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                    TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -325,7 +327,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -338,58 +340,87 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(
-                                color: Color.fromARGB(255, 128, 255, 0),
-                                width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
                     onPressed: () async {
                       if (_addUserFormKey.currentState!.validate()) {
                         _addUserFormKey.currentState!.save();
-                        EasyLoading.show();
-                        var res = await api.addUser(
-                            _valRole!,
+                        var resultUid = await auth.registerWithEmail(
                             _emailController.text,
                             _passwordController.text,
-                            _nameController.text);
-
-                        switch (res.statusCode) {
-                          case 201:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context, SlideRightRoute(page: const UsersScreen(errMsg: 'User Added Successfully',)));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"]) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add User"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add User"),
-                            ));
-                            break;
+                            (text) => {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(text),
+                                  ))
+                                });
+                        if (resultUid == null) {
+                          return;
                         }
+                        await firestore.createUser(resultUid, {
+                          'email': _emailController.text,
+                          'name': _nameController.text,
+                          'function': roles[_valRole!],
+                          'uid': resultUid,
+                        });
+                        Navigator.pushReplacement(
+                            context,
+                            SlideRightRoute(
+                                page: const UsersScreen(
+                              errMsg: 'User Added Successfully',
+                            )));
+                        // EasyLoading.show();
+                        // var res = await api.addUser(
+                        //     _valRole!,
+                        //     _emailController.text,
+                        //     _passwordController.text,
+                        //     _nameController.text);
+
+                        // switch (res.statusCode) {
+                        //   case 201:
+                        //     EasyLoading.dismiss();
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         SlideRightRoute(
+                        //             page: const UsersScreen(
+                        //           errMsg: 'User Added Successfully',
+                        //         )));
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"]) {
+                        //       ScaffoldMessenger.of(context)
+                        //           .showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add User"),
+                        //     ));
+                        //     break;
+                        //   case 403:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Permission Denied"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add User"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('SAVE',

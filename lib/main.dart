@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      home:  const LoginScreen(
+      home: const LoginScreen(
         errMsg: '',
       ),
     );
