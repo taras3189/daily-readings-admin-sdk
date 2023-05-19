@@ -1,13 +1,15 @@
 import 'dart:convert';
 
+import 'package:daily_readings_admin_sdk/services/auth.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:get/get.dart';
 
 import '../helpers/slide_right_route.dart';
-import '../services/auth_old.dart';
 import 'login.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -38,6 +40,8 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
 
+  AuthController auth = Get.find();
+  FirestoreController firestore = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -64,21 +68,25 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _emailController,
                   validator: (value) {
-                    if(value==null) {
+                    if (value == null) {
                       return 'Please enter your email';
                     } else {
-                      return EmailValidator.validate(value) ? null: 'Please fill with the valid email';
+                      return EmailValidator.validate(value)
+                          ? null
+                          : 'Please fill with the valid email';
                     }
                   },
                   onChanged: (value) {},
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -119,13 +127,14 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _passwordController,
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your password';
-                    } else if(value.length < 6) {
+                    } else if (value.length < 6) {
                       return 'Minimum 6 characters';
                     }
                     return null;
@@ -135,7 +144,8 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   obscureText: true,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -176,7 +186,8 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _nameController,
                   validator: (value) {
@@ -189,7 +200,8 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
                     fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -230,7 +242,8 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -243,16 +256,38 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            // side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        // side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 71, 123, 171)),
                     ),
                     onPressed: () async {
                       if (_registerFormKey.currentState!.validate()) {
                         _registerFormKey.currentState!.save();
-                        EasyLoading.show();
+
+                        var resultUid = await auth.registerWithEmail(
+                            _emailController.text,
+                            _passwordController.text,
+                            (text) => {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(text),
+                                  ))
+                                });
+                        if (resultUid == null) {
+                          return;
+                        }
+                        await firestore.createUser(resultUid, {
+                          'email': _emailController.text,
+                          'name': _nameController.text,
+                          'role': 'user',
+                          'uid': resultUid,
+                        });
+                        Get.offAll(() => const LoginScreen(
+                              errMsg: 'Registered Successfully',
+                            ));
+
                         // var res = await authService.register(
                         //     _emailController.text, _passwordController.text, _nameController.text);
 
@@ -318,8 +353,12 @@ class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
                           text: 'here ',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(context,
-                                  SlideRightRoute(page: const LoginScreen(errMsg: '',)));
+                              Navigator.push(
+                                  context,
+                                  SlideRightRoute(
+                                      page: const LoginScreen(
+                                    errMsg: '',
+                                  )));
                             },
                           style: const TextStyle(
                             fontSize: 18.0,

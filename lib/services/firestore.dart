@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
 import 'package:daily_readings_admin_sdk/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import 'auth.dart';
@@ -23,7 +21,6 @@ class FirestoreController extends GetxController {
   @override
   void onInit() {
     uid = injectedUID;
-    print('tesssss $uid');
     initData();
     listenUser();
     super.onInit();
@@ -40,7 +37,7 @@ class FirestoreController extends GetxController {
         if (Storage.hasData('fontHeight')) {
           val?.fontHeight = Storage.getValue('fontHeight');
         } else {
-          val?.fontHeight = 1   ;
+          val?.fontHeight = 1;
         }
         if (Storage.hasData('fontFamily')) {
           val?.fontFamily = Storage.getValue('fontFamily');
@@ -54,7 +51,7 @@ class FirestoreController extends GetxController {
   void reInit(String id, [User? user]) {
     uid = id;
     userListener?.cancel();
-    if (id.isNotEmpty) {
+    if (id.isNotEmpty && id != '') {
       listenUser();
       if (user != null) userAuthData = user;
     } else {
@@ -63,18 +60,15 @@ class FirestoreController extends GetxController {
   }
 
   void listenUser() {
-    if (uid!.isNotEmpty) {
+    if (uid!.isNotEmpty && uid != '') {
       userListener = firestore
           .collection('users')
-          .doc(injectedUID)
+          .doc(uid)
           .snapshots()
           .listen((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists) {
           userDataModel.value = UserModel.fromJson(
               documentSnapshot.data() as Map<String, dynamic>);
-          // print(userDataModel.value);
-          // updateUser({'currency': 'aaa'});
-          print(userDataModel);
         } else {
           print('Document does not exist on the database');
         }
@@ -83,7 +77,6 @@ class FirestoreController extends GetxController {
   }
 
   Future<void> createUser(String uid, Map<String, dynamic> obj) {
-    // Call the user's CollectionReference to add a new user
     return firestore
         .collection('users')
         .doc(uid)
@@ -93,8 +86,6 @@ class FirestoreController extends GetxController {
   }
 
   Future<void> updateUser(Map<String, dynamic> obj) {
-    // print(obj);
-    // Call the user's CollectionReference to add a new user
     return firestore
         .collection('users')
         .doc(uid)
@@ -104,8 +95,6 @@ class FirestoreController extends GetxController {
   }
 
   Future<void> updateUserById(String? _uid, Map<String, dynamic> obj) {
-    // print(obj);
-    // Call the user's CollectionReference to add a new user
     return firestore
         .collection('users')
         .doc(_uid)
@@ -126,10 +115,7 @@ class FirestoreController extends GetxController {
     return users.data();
   }
 
-  Future<Map<String, dynamic>?> getBibleTitle({required String bookName}) async {
-    var data = await firestore.collection('bible_titles').doc(bookName).get();
-    return data.data();
-  }
+  
 
   Future<QuerySnapshot<UserModel>> getUsersByID(List uids) async {
     var users = await firestore
