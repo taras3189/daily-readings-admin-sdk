@@ -1,32 +1,32 @@
 import 'dart:convert';
 
-import 'package:daily_readings_admin_sdk/screens/users_screen.dart';
+import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
+import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/api_service.dart';
+import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../helpers/slide_right_route.dart';
-import '../models/users.dart';
+import 'package:get/get.dart';
+import '../../helpers/slide_right_route.dart';
+import '../../models/users.dart';
 import 'edit_user_screen.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   const UserDetailsScreen({Key? key, required this.users}) : super(key: key);
-  final Users users;
+  final UserModel users;
 
   static const String _title = 'Users';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulUserDetailsWidget(users: users),
-    );
+    return StatefulUserDetailsWidget(users: users);
   }
 }
 
 class StatefulUserDetailsWidget extends StatefulWidget {
   const StatefulUserDetailsWidget({Key? key, required this.users})
       : super(key: key);
-  final Users users;
+  final UserModel users;
 
   @override
   _UserDetailsWidgetState createState() =>
@@ -36,7 +36,7 @@ class StatefulUserDetailsWidget extends StatefulWidget {
 class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
   _UserDetailsWidgetState({required this.users});
 
-  final Users users;
+  final UserModel users;
   final ApiService api = ApiService();
 
   @override
@@ -88,7 +88,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                         Text('Name:',
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.8))),
-                        Text(widget.users.fullname.toString(),
+                        Text(widget.users.function.toString(),
                             style: Theme.of(context).textTheme.titleMedium)
                       ],
                     ),
@@ -112,7 +112,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                         Text('Role:',
                             style: TextStyle(
                                 color: Colors.black.withOpacity(0.8))),
-                        Text(widget.users.roles!.roleName.toString(),
+                        Text(widget.users.function,
                             style: Theme.of(context).textTheme.titleMedium)
                       ],
                     ),
@@ -191,7 +191,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                       const Color.fromARGB(255, 255, 200, 0)),
                                 ),
                                 onPressed: () async {
-                                  _confirmDialog();
+                                  _confirmDialog(users.uid);
                                 },
                                 label: const Text('DELETE',
                                     style: TextStyle(
@@ -215,7 +215,8 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
     );
   }
 
-  Future<void> _confirmDialog() async {
+  Future<void> _confirmDialog(uid) async {
+    FirestoreController firestore = Get.find();
     return showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -234,43 +235,15 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                 child: const Text('Yes'),
                 onPressed: () async {
                   EasyLoading.show();
-                  var res = await api.deleteUser(widget.users.id.toString());
 
-                  switch (res.statusCode) {
-                    case 200:
-                      EasyLoading.dismiss();
-                      Navigator.pushReplacement(
-                          context,
-                          SlideRightRoute(
-                              page: const UsersScreen(
-                            errMsg: 'Deleted Successfully',
-                          )));
-                      break;
-                    case 400:
-                      EasyLoading.dismiss();
-                      var data = jsonDecode(res.body);
-                      if (data["msg"] != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(data["msg"].toString()),
-                        ));
-                      }
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Delete Failed"),
-                      ));
-                      break;
-                    case 403:
-                      EasyLoading.dismiss();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Permission Denied"),
-                      ));
-                      break;
-                    default:
-                      EasyLoading.dismiss();
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Delete Failed"),
-                      ));
-                      break;
-                  }
+                  await firestore.deleteAccount(uid);
+                  EasyLoading.dismiss();
+                  Navigator.pushReplacement(
+                      context,
+                      SlideRightRoute(
+                          page: const UsersScreen(
+                        errMsg: 'Deleted Successfully',
+                      )));
                 },
               ),
               ElevatedButton(

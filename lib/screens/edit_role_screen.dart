@@ -15,15 +15,13 @@ class EditRoleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulEditRoleWidget(roles: roles),
-    );
+    return StatefulEditRoleWidget(roles: roles);
   }
 }
 
 class StatefulEditRoleWidget extends StatefulWidget {
-  const StatefulEditRoleWidget({Key? key, required this.roles}) : super(key: key);
+  const StatefulEditRoleWidget({Key? key, required this.roles})
+      : super(key: key);
   final Roles roles;
 
   @override

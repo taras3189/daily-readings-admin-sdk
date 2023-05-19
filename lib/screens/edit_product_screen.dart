@@ -15,20 +15,19 @@ class EditProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulEditProductWidget(products: products),
-    );
+    return StatefulEditProductWidget(products: products);
   }
 }
 
 class StatefulEditProductWidget extends StatefulWidget {
-  const StatefulEditProductWidget({Key? key, required this.products}) : super(key: key);
+  const StatefulEditProductWidget({Key? key, required this.products})
+      : super(key: key);
   final Products products;
 
   @override
   // ignore: no_logic_in_create_state
-  _EditProductWidgetState createState() => _EditProductWidgetState(products: products);
+  _EditProductWidgetState createState() =>
+      _EditProductWidgetState(products: products);
 }
 
 class _EditProductWidgetState extends State<StatefulEditProductWidget> {
@@ -70,10 +69,9 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
-          onPressed: () =>
-              Navigator.pushReplacement(context, SlideRightRoute(page: ProductDetailsScreen(products: products))),
+          onPressed: () => Navigator.pushReplacement(context,
+              SlideRightRoute(page: ProductDetailsScreen(products: products))),
         ),
-
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -96,7 +94,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productNameController,
                   validator: (value) {
@@ -109,7 +108,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -150,7 +150,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productDescriptionController,
                   validator: (value) {
@@ -163,7 +164,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -204,7 +206,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productImageController,
                   validator: (value) {
@@ -217,7 +220,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.url,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -258,7 +262,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                 child: TextFormField(
                   controller: _productPriceController,
                   validator: (value) {
@@ -271,7 +276,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                   autocorrect: true,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    errorStyle: TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
                     fillColor: Color.fromARGB(255, 0, 0, 0),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
@@ -312,7 +318,8 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
@@ -325,9 +332,11 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
-                          )),
+                        borderRadius: BorderRadius.circular(5.0),
+                        side: const BorderSide(
+                            color: Color.fromARGB(255, 128, 255, 0),
+                            width: 1.0),
+                      )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 255, 200, 0)),
                     ),
@@ -336,35 +345,47 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                         _editProductFormKey.currentState!.save();
                         EasyLoading.show();
                         var res = await api.updateProduct(
-                            products.id, _productNameController.text, _productDescriptionController.text, _productImageController.text, _productPriceController.text);
+                            products.id,
+                            _productNameController.text,
+                            _productDescriptionController.text,
+                            _productImageController.text,
+                            _productPriceController.text);
 
                         switch (res.statusCode) {
                           case 200:
                             EasyLoading.dismiss();
                             Navigator.pushReplacement(
-                                context, SlideRightRoute(page: const ProductsScreen(errMsg: 'Updated Successfully',)));
+                                context,
+                                SlideRightRoute(
+                                    page: const ProductsScreen(
+                                  errMsg: 'Updated Successfully',
+                                )));
                             break;
                           case 400:
                             EasyLoading.dismiss();
                             var data = jsonDecode(res.body);
                             if (data["msg"] != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
                                 content: Text(data["msg"].toString()),
                               ));
                             }
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text("Update Failed"),
                             ));
                             break;
                           case 403:
                             EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text("Permission Denied"),
                             ));
                             break;
                           default:
                             EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text("Update Failed"),
                             ));
                             break;

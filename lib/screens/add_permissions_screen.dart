@@ -18,24 +18,25 @@ class AddPermissionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulAddPermissionWidget(role: role,),
+    return StatefulAddPermissionWidget(
+      role: role,
     );
   }
 }
 
 class StatefulAddPermissionWidget extends StatefulWidget {
-  const StatefulAddPermissionWidget({Key? key, required this.role}) : super(key: key);
+  const StatefulAddPermissionWidget({Key? key, required this.role})
+      : super(key: key);
   final Roles role;
 
   @override
   // ignore: no_logic_in_create_state
-  _AddPermissionWidgetState createState() => _AddPermissionWidgetState(role: role);
+  _AddPermissionWidgetState createState() =>
+      _AddPermissionWidgetState(role: role);
 }
 
 class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
-  _AddPermissionWidgetState({ required this.role });
+  _AddPermissionWidgetState({required this.role});
   final Roles role;
   final ApiService api = ApiService();
   final _addPermissionFormKey = GlobalKey<FormState>();
@@ -48,8 +49,9 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
 
   bool setValue(int index) {
     bool permVal = false;
-    var matchPerm = role.permissions!.where((perm) => perm.id == permissions[index].id);
-    if(matchPerm.isNotEmpty) {
+    var matchPerm =
+        role.permissions!.where((perm) => perm.id == permissions[index].id);
+    if (matchPerm.isNotEmpty) {
       permVal = true;
     }
     return permVal;
@@ -76,7 +78,9 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 26, 255, 1)),
           onPressed: () => Navigator.pushReplacement(
-              context, SlideRightRoute(page: RoleDetailsScreen(roles: role, errMsg: ''))),
+              context,
+              SlideRightRoute(
+                  page: RoleDetailsScreen(roles: role, errMsg: ''))),
         ),
       ),
       body: Center(
@@ -93,70 +97,81 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
                     .toList();
                 return permissions.isNotEmpty
                     ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10.0),
-                  child: ListView.builder(
-                    itemCount: permissions.isEmpty ? 0 : permissions.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
-                        child: CheckboxListTile(
-                          title: Text(
-                            permissions[index].permDescription.toString(),
-                            style: const TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
-                          value: setValue(index),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          onChanged: (bool? newValue) {
-                            if (newValue == true) {
-                              var matchPerm = role.permissions!.where((perm) => perm.id == permissions[index].id);
-                              if(matchPerm.isEmpty) {
-                                setState(() {
-                                  role.permissions!.add(permissions[index] as Permissions);
-                                });
-                              }
-                            } else {
-                              var matchPerm = role.permissions!.where((perm) => perm.id == permissions[index].id);
-                              if(matchPerm.isNotEmpty) {
-                                setState(() {
-                                  role.permissions!.removeWhere((item) => item.id == permissions[index].id);
-                                });
-                              }
-                            }
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: ListView.builder(
+                          itemCount:
+                              permissions.isEmpty ? 0 : permissions.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 0.0, horizontal: 0.0),
+                              child: CheckboxListTile(
+                                title: Text(
+                                  permissions[index].permDescription.toString(),
+                                  style: const TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ),
+                                value: setValue(index),
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                onChanged: (bool? newValue) {
+                                  if (newValue == true) {
+                                    var matchPerm = role.permissions!.where(
+                                        (perm) =>
+                                            perm.id == permissions[index].id);
+                                    if (matchPerm.isEmpty) {
+                                      setState(() {
+                                        role.permissions!.add(
+                                            permissions[index] as Permissions);
+                                      });
+                                    }
+                                  } else {
+                                    var matchPerm = role.permissions!.where(
+                                        (perm) =>
+                                            perm.id == permissions[index].id);
+                                    if (matchPerm.isNotEmpty) {
+                                      setState(() {
+                                        role.permissions!.removeWhere((item) =>
+                                            item.id == permissions[index].id);
+                                      });
+                                    }
+                                  }
+                                },
+                              ),
+                            );
                           },
                         ),
-                      );
-                    },
-                  ),
-                )
+                      )
                     : const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    child: Text(
-                      'No roles found',
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        height: 1.171875,
-                        fontSize: 24.0,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),
-                    ),
-                  ),
-                );
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 20.0),
+                          child: Text(
+                            'No roles found',
+                            overflow: TextOverflow.visible,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.171875,
+                              fontSize: 24.0,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w300,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                        ),
+                      );
               } else if (resp.statusCode == 401) {
                 EasyLoading.dismiss();
                 Future.delayed(Duration.zero, () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen(errMsg: 'Unauthenticated',)));
+                          builder: (context) => const LoginScreen(
+                                errMsg: 'Unauthenticated',
+                              )));
                 });
               } else if (resp.statusCode == 403) {
                 EasyLoading.dismiss();
@@ -164,7 +179,8 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => RoleDetailsScreen(roles: role, errMsg: 'Permission Denied')));
+                          builder: (context) => RoleDetailsScreen(
+                              roles: role, errMsg: 'Permission Denied')));
                 });
               }
             } else if (snapshot.hasError) {
@@ -182,20 +198,24 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           EasyLoading.show();
-          List<int?> permissionsInt = role.permissions!.map((e) => e.id).toList();
+          List<int?> permissionsInt =
+              role.permissions!.map((e) => e.id).toList();
           var res = await api.addPermissiontoRole(role.id, permissionsInt);
 
           switch (res.statusCode) {
             case 200:
               EasyLoading.dismiss();
               Navigator.pushReplacement(
-                  context, SlideRightRoute(page: RoleDetailsScreen(roles: role, errMsg: 'Permission added to role successfully')));
+                  context,
+                  SlideRightRoute(
+                      page: RoleDetailsScreen(
+                          roles: role,
+                          errMsg: 'Permission added to role successfully')));
               break;
             case 400:
               EasyLoading.dismiss();
               var data = jsonDecode(res.body);
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Failed to Add Permissions"),
               ));
               break;
@@ -207,8 +227,7 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
               break;
             default:
               EasyLoading.dismiss();
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text("Failed to Add Permissions"),
               ));
               break;

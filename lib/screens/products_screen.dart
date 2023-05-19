@@ -8,7 +8,7 @@ import '../models/products.dart';
 import '../services/api_service.dart';
 import '../widgets/product_list_widget.dart';
 import 'add_product_screen.dart';
-import 'home.dart';
+import 'home/home.dart';
 import 'login.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -18,20 +18,21 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: _title,
-      home: StatefulProductsWidget(errMsg: errMsg,),
+    return StatefulProductsWidget(
+      errMsg: errMsg,
     );
   }
 }
 
 class StatefulProductsWidget extends StatefulWidget {
-  const StatefulProductsWidget({Key? key, required this.errMsg}) : super(key: key);
+  const StatefulProductsWidget({Key? key, required this.errMsg})
+      : super(key: key);
   final String errMsg;
 
   @override
   // ignore: no_logic_in_create_state
-  State<StatefulProductsWidget> createState() => _StatefulProductsWidget(errMsg: errMsg);
+  State<StatefulProductsWidget> createState() =>
+      _StatefulProductsWidget(errMsg: errMsg);
 }
 
 class _StatefulProductsWidget extends State<StatefulProductsWidget> {
@@ -54,7 +55,7 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
   }
 
   Future<Response> get listProducts async {
-    EasyLoading.show();
+    // EasyLoading.show();
     return await api.getProductList();
   }
 
@@ -78,8 +79,12 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 255, 255, 255)),
-          onPressed: () =>
-              Navigator.pushReplacement(context, SlideRightRoute(page: const HomeScreen(errMsg: '',))),
+          onPressed: () => Navigator.pushReplacement(
+              context,
+              SlideRightRoute(
+                  page: const HomeScreen(
+                errMsg: '',
+              ))),
         ),
       ),
       body: Center(
@@ -96,35 +101,37 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
                     .toList();
                 return products.isNotEmpty
                     ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10.0),
-                  child: ProductListWidget(products: products),
-                )
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 10.0),
+                        child: ProductListWidget(products: products),
+                      )
                     : const Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20.0),
-                    child: Text(
-                      'No products found',
-                      overflow: TextOverflow.visible,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        height: 1.171875,
-                        fontSize: 24.0,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      ),
-                    ),
-                  ),
-                );
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 20.0),
+                          child: Text(
+                            'No products found',
+                            overflow: TextOverflow.visible,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              height: 1.171875,
+                              fontSize: 24.0,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.w300,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                        ),
+                      );
               } else if (resp.statusCode == 401) {
                 EasyLoading.dismiss();
                 Future.delayed(Duration.zero, () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen(errMsg: 'Unauthenticated',)));
+                          builder: (context) => const LoginScreen(
+                                errMsg: 'Unauthenticated',
+                              )));
                 });
               } else if (resp.statusCode == 403) {
                 EasyLoading.dismiss();
@@ -132,7 +139,9 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen(errMsg: 'Permission Denied',)));
+                          builder: (context) => const HomeScreen(
+                                errMsg: 'Permission Denied',
+                              )));
                 });
               }
             } else if (snapshot.hasError) {
