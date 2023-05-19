@@ -19,8 +19,8 @@ class RoleDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StatefulRoleDetailsWidget(
-      roles: roles,
-      errMsg: errMsg,
+        roles: roles,
+        errMsg: errMsg,
     );
   }
 }

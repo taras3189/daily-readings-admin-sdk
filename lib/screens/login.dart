@@ -48,7 +48,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
   void checkIfLogined() async {
     if (auth.getUID() != null && auth.getUID() != '') {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.to(() => const AddUserScreen());
+        Get.to(() => const HomeScreen(errMsg: '',));
       });
     }
   }
