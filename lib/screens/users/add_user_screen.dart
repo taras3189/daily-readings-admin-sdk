@@ -106,16 +106,16 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                       color: Color.fromARGB(255, 0, 0, 0),
                       size: 24,
                     ),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                   ),
                   child: DropdownButtonHideUnderline(
                       child: DropdownButton(
-                    dropdownColor: const Color.fromARGB(255, 0, 0, 0),
+                    dropdownColor: const Color.fromARGB(255, 255, 255, 255),
                     borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                     isExpanded: true,
                     value: roles[_valRole ?? 0],
@@ -138,7 +138,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                             fontSize: 24.0,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w300,
-                            color: Color.fromARGB(255, 26, 255, 1),
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                       );
@@ -170,17 +170,17 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     errorStyle:
-                        TextStyle(color: Color.fromARGB(255, 26, 255, 1)),
-                    fillColor: Color.fromARGB(255, 0, 0, 0),
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 128, 255, 0), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
                     labelText: 'Email',
                     hintText: 'Email',
@@ -188,7 +188,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                       child: Icon(
                         Icons.email,
-                        color: Color.fromARGB(255, 128, 255, 0),
+                        color: Color.fromARGB(255, 71, 123, 171),
                         size: 24,
                       ),
                     ),
@@ -197,17 +197,17 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(255, 71, 123, 171)),
                     hintStyle: TextStyle(
                         height: 1.171875,
                         fontSize: 24.0,
                         fontFamily: 'Roboto',
                         fontWeight: FontWeight.w300,
-                        color: Color.fromARGB(255, 128, 255, 0)),
+                        color: Color.fromARGB(100, 100, 100, 100)),
                     filled: true,
                   ),
                   style: const TextStyle(
-                      color: Color.fromARGB(255, 128, 255, 0), fontSize: 24.0),
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
                 ),
               ),
               Padding(
