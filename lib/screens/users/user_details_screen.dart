@@ -130,7 +130,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                             child: ElevatedButton.icon(
                               icon: const Icon(
                                 Icons.edit,
-                                color: Color.fromARGB(255, 0, 0, 0),
+                                color: Color.fromARGB(255, 255, 255, 255),
                                 size: 24,
                               ),
                               style: ButtonStyle(
@@ -138,13 +138,13 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                         RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(5),
-                                  side: const BorderSide(
-                                      color: Color.fromARGB(255, 128, 255, 0),
-                                      width: 1.0),
+                                  // side: const BorderSide(
+                                  //     color: Color.fromARGB(255, 128, 255, 0),
+                                  //     width: 1.0),
                                 )),
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        const Color.fromARGB(255, 255, 200, 0)),
+                                        const Color.fromARGB(255, 71, 123, 171)),
                               ),
                               onPressed: () async {
                                 Navigator.pushReplacement(
@@ -160,7 +160,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                     fontSize: 24,
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w400,
-                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    color: Color.fromARGB(255, 255, 255, 255),
                                   )),
                             ),
                           ),
@@ -174,7 +174,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                               child: ElevatedButton.icon(
                                 icon: const Icon(
                                   Icons.delete,
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   size: 24,
                                 ),
                                 style: ButtonStyle(
@@ -182,13 +182,13 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0),
-                                    side: const BorderSide(
-                                        color: Color.fromARGB(255, 128, 255, 0),
-                                        width: 1.0),
+                                    // side: const BorderSide(
+                                    //     color: Color.fromARGB(255, 128, 255, 0),
+                                    //     width: 1.0),
                                   )),
                                   backgroundColor: MaterialStateProperty.all<
                                           Color>(
-                                      const Color.fromARGB(255, 255, 200, 0)),
+                                      const Color.fromARGB(255, 71, 123, 171)),
                                 ),
                                 onPressed: () async {
                                   _confirmDialog(users.uid);
@@ -199,7 +199,7 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                       fontSize: 24,
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
-                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                     )),
                               ),
                             ))
