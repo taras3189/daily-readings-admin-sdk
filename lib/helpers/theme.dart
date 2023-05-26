@@ -18,7 +18,7 @@ class AppTheme {
         ),
         textTheme: ThemeData.dark().textTheme,
         progressIndicatorTheme: const ProgressIndicatorThemeData(
-          // circularTrackColor: AppColors.kPrimaryColor,
+          // circularTrackColor: AppColors.kAppColors.kPrimaryColor,
           color: AppColors.kPrimaryColor,
         ),
         colorScheme:

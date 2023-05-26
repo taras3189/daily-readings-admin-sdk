@@ -1,7 +1,7 @@
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 class StorageInfoCard extends StatelessWidget {
   const StorageInfoCard({
@@ -21,7 +21,8 @@ class StorageInfoCard extends StatelessWidget {
       margin: const EdgeInsets.only(top: defaultPadding),
       padding: const EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
-        border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
+        border: Border.all(
+            width: 2, color: AppColors.kPrimaryColor.withOpacity(0.15)),
         borderRadius: const BorderRadius.all(
           Radius.circular(defaultPadding),
         ),

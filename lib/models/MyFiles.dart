@@ -1,4 +1,4 @@
-import 'package:daily_readings_admin_sdk/helpers/constants.dart';
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CloudStorageInfo {
@@ -22,7 +22,7 @@ List demoMyFiles = [
     numOfFiles: 1328,
     svgSrc: "../public/assets/icons/Documents.svg",
     totalStorage: "1.9GB",
-    color: primaryColor,
+    color: AppColors.kPrimaryColor,
     percentage: 35,
   ),
   CloudStorageInfo(

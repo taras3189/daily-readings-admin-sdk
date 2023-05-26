@@ -1,4 +1,5 @@
-import 'package:daily_readings_admin_sdk/screens/login.dart';
+import 'package:daily_readings_admin_sdk/screens/login/login.dart';
+import 'package:daily_readings_admin_sdk/screens/login/register.dart';
 import 'package:daily_readings_admin_sdk/screens/main/main_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:get/get.dart';
@@ -23,5 +24,6 @@ class AppPages {
         page: () => const UsersScreen(
               errMsg: '',
             )),
+    GetPage(name: Routes.REGISTER, page: () => const RegisterScreen()),
   ];
 }

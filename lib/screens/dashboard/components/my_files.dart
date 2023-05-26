@@ -1,9 +1,14 @@
+import 'dart:io';
 
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:daily_readings_admin_sdk/models/MyFiles.dart';
 import 'package:daily_readings_admin_sdk/screens/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'file_info_card.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class MyFiles extends StatelessWidget {
   const MyFiles({
@@ -30,7 +35,26 @@ class MyFiles extends StatelessWidget {
                       defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                FilePickerResult? result =
+                    await FilePicker.platform.pickFiles();
+
+                if (result != null) {
+                  Uint8List fileBytes = result.files.first.bytes!;
+                  String fileName = result.files.first.name;
+
+                  await FirebaseStorage.instance
+                      .ref('uploads/$fileName')
+                      .putData(fileBytes);
+                  Get.snackbar(
+                    "Success",
+                    "File uploaded successfully",
+                    backgroundColor: Colors.green,
+                  );
+                } else {
+                  // User canceled the picker
+                }
+              },
               icon: const Icon(Icons.add),
               label: const Text("Add New"),
             ),

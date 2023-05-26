@@ -13,6 +13,7 @@ class UserModel {
     this.uid = '',
     this.name = '',
     this.avatar = '',
+    this.isVerified = false,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -25,5 +26,6 @@ class UserModel {
   String uid;
   String name;
   String avatar;
+  bool isVerified;
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

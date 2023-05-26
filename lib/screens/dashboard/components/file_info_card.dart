@@ -1,3 +1,4 @@
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:daily_readings_admin_sdk/models/MyFiles.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class FileInfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
-        color: secondaryColor,
+        color: AppColors.secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
@@ -81,7 +82,7 @@ class FileInfoCard extends StatelessWidget {
 class ProgressLine extends StatelessWidget {
   const ProgressLine({
     Key? key,
-    this.color = primaryColor,
+    this.color = AppColors.kPrimaryColor,
     required this.percentage,
   }) : super(key: key);
 

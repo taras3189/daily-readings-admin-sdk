@@ -1,3 +1,4 @@
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class StorageDetails extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
-        color: secondaryColor,
+        color: AppColors.secondaryColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: const Column(

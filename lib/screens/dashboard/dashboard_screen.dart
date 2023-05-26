@@ -1,3 +1,4 @@
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: AppColors.bgColor,
       body: SafeArea(
       
         child: SingleChildScrollView(

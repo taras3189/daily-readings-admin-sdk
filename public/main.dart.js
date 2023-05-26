@@ -21143,7 +21143,7 @@ return A.D($async$alD,r)},
 alC(a){var s=0,r=A.E(t.H)
 var $async$alC=A.z(function(b,c){if(b===1)return A.B(c,r)
 while(true)switch(s){case 0:s=2
-return A.J(B.bt.d0(u.p,A.aj(["label",a.a,"primaryColor",a.b],t.N,t.z),t.H),$async$alC)
+return A.J(B.bt.d0(u.p,A.aj(["label",a.a,"AppColors.kPrimaryColor",a.b],t.N,t.z),t.H),$async$alC)
 case 2:return A.C(null,r)}})
 return A.D($async$alC,r)},
 aJo(a){if($.w1!=null){$.w1=a
@@ -35520,7 +35520,7 @@ case u.p:o=t.a.a(s.b)
 q=J.ag(o)
 n=A.br(q.h(o,"label"))
 if(n==null)n=""
-m=A.iV(q.h(o,"primaryColor"))
+m=A.iV(q.h(o,"AppColors.kPrimaryColor"))
 if(m==null)m=4278190080
 q=self.document
 q.title=n

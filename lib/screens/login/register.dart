@@ -5,63 +5,37 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import '../helpers/slide_right_route.dart';
-import 'register.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key, required this.errMsg}) : super(key: key);
-  final String errMsg;
+import '../../helpers/slide_right_route.dart';
+import 'login.dart';
+
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+  static const String _title = 'Register';
 
   @override
   Widget build(BuildContext context) {
-    return StatefulLoginWidget(
-      errMsg: errMsg,
-    );
+    return const StatefulRegisterWidget();
   }
 }
 
-class StatefulLoginWidget extends StatefulWidget {
-  const StatefulLoginWidget({Key? key, required this.errMsg}) : super(key: key);
-  final String errMsg;
+class StatefulRegisterWidget extends StatefulWidget {
+  const StatefulRegisterWidget({Key? key}) : super(key: key);
 
   @override
-  State<StatefulLoginWidget> createState() =>
-      _StatefulLoginWidget(errMsg: errMsg);
+  State<StatefulRegisterWidget> createState() => _StatefulRegisterWidget();
 }
 
-class _StatefulLoginWidget extends State<StatefulLoginWidget> {
-  _StatefulLoginWidget({required this.errMsg});
-  final String errMsg;
+class _StatefulRegisterWidget extends State<StatefulRegisterWidget> {
   // final AuthService authService = AuthService();
   final storage = const FlutterSecureStorage();
-  final _loginFormKey = GlobalKey<FormState>();
+  final _registerFormKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  FirestoreController firestore = Get.find();
-  bool isLoading = false;
+  final _nameController = TextEditingController();
+
   AuthController auth = Get.find();
-
-  void checkIfLogined() async {
-    if (auth.getUID() != null && auth.getUID() != '') {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.toNamed('/home');
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    checkIfLogined();
-
-    super.initState();
-    if (errMsg.isNotEmpty) {
-      Future.delayed(Duration.zero, () {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(errMsg),
-        ));
-      });
-    }
-  }
+  FirestoreController firestore = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +43,13 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SingleChildScrollView(
         child: Form(
-          key: _loginFormKey,
+          key: _registerFormKey,
           child: Column(
             children: [
               const Padding(
                 padding: EdgeInsets.fromLTRB(15, 80, 15, 20),
                 child: Text(
-                  'Please login to enter the app!',
+                  'Please fill your email, password and name',
                   overflow: TextOverflow.visible,
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -116,7 +90,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 235, 235, 235), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
                     labelText: 'Email',
                     hintText: 'Email',
@@ -154,14 +128,15 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your password';
-                    } else {
-                      return null;
+                    } else if (value.length < 6) {
+                      return 'Minimum 6 characters';
                     }
+                    return null;
                   },
                   onChanged: (value) {},
                   autocorrect: true,
                   obscureText: true,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.text,
                   decoration: const InputDecoration(
                     errorStyle:
                         TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
@@ -174,7 +149,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5.0)),
                       borderSide: BorderSide(
-                          color: Color.fromARGB(255, 235, 235, 235), width: 1),
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
                     ),
                     labelText: 'Password',
                     hintText: 'Password',
@@ -206,13 +181,69 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
               ),
               Padding(
                 padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: TextFormField(
+                  controller: _nameController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                  autocorrect: true,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    errorStyle:
+                        TextStyle(color: Color.fromARGB(255, 203, 12, 12)),
+                    fillColor: Color.fromARGB(255, 255, 255, 255),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 71, 123, 171), width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(
+                          color: Color.fromARGB(255, 235, 235, 255), width: 1),
+                    ),
+                    labelText: 'Name',
+                    hintText: 'Name',
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      child: Icon(
+                        Icons.perm_identity,
+                        color: Color.fromARGB(255, 71, 123, 171),
+                        size: 24,
+                      ),
+                    ),
+                    labelStyle: TextStyle(
+                        height: 1.171875,
+                        fontSize: 24.0,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromARGB(255, 71, 123, 171)),
+                    hintStyle: TextStyle(
+                        height: 1.171875,
+                        fontSize: 24.0,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w300,
+                        color: Color.fromARGB(100, 100, 100, 100)),
+                    filled: true,
+                  ),
+                  style: const TextStyle(
+                      color: Color.fromARGB(255, 0, 0, 0), fontSize: 24.0),
+                ),
+              ),
+              Padding(
+                padding:
                     const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: SizedBox(
                   height: 60.0,
                   width: MediaQuery.of(context).size.width * 1.0,
                   child: ElevatedButton.icon(
                     icon: const Icon(
-                      Icons.login,
+                      Icons.update,
                       color: Color.fromARGB(255, 255, 255, 255),
                       size: 24.0,
                     ),
@@ -220,34 +251,41 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
-                        // side: const BorderSide(
-                        //     color: Color.fromARGB(255, 0, 0, 0),
-                        //     width: 1.0),
+                        // side: const BorderSide(color: Color.fromARGB(255, 128, 255, 0), width: 1.0),
                       )),
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(255, 71, 123, 171)),
                     ),
                     onPressed: () async {
-                      if (_loginFormKey.currentState == null) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Wrong email and password!"),
-                        ));
-                      } else {
-                        if (_loginFormKey.currentState!.validate()) {
-                          _loginFormKey.currentState!.save();
+                      if (_registerFormKey.currentState!.validate()) {
+                        _registerFormKey.currentState!.save();
 
-                          await auth.loginWithEmail(
-                              _emailController.text, _passwordController.text,
-                              (text) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(text),
-                            ));
-                          });
+                        var resultUid = await auth.registerWithEmail(
+                            _emailController.text,
+                            _passwordController.text,
+                            (text) => {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(text),
+                                  ))
+                                });
+                        if (resultUid == null) {
+                          return;
                         }
+                        await firestore.createUser(resultUid, {
+                          'email': _emailController.text,
+                          'name': _nameController.text,
+                          'function': 'user',
+                          'uid': resultUid,
+                          'createdAt': DateTime.now().toString(),
+                          'isVerified': false,
+                        });
+                        Get.offAll(() => const LoginScreen(
+                              errMsg: 'Registered Successfully',
+                            ));
                       }
                     },
-                    label: const Text('LOGIN',
+                    label: const Text('REGISTER',
                         style: TextStyle(
                           height: 1.171875,
                           fontSize: 24.0,
@@ -262,7 +300,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                 padding: const EdgeInsets.all(30),
                 child: RichText(
                   text: TextSpan(
-                    text: 'Not registered? ',
+                    text: 'Already registered? ',
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontFamily: 'Roboto',
@@ -271,7 +309,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                     ),
                     children: <TextSpan>[
                       const TextSpan(
-                          text: 'Register ',
+                          text: 'Login ',
                           style: TextStyle(
                             fontSize: 18.0,
                             fontFamily: 'Roboto',
@@ -282,10 +320,7 @@ class _StatefulLoginWidget extends State<StatefulLoginWidget> {
                           text: 'here ',
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(
-                                  context,
-                                  SlideRightRoute(
-                                      page: const RegisterScreen()));
+                              Get.toNamed('/login');
                             },
                           style: const TextStyle(
                             fontSize: 18.0,

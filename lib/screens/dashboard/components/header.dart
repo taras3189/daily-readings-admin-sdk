@@ -1,4 +1,5 @@
 import 'package:daily_readings_admin_sdk/controllers/global_controller.dart';
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:daily_readings_admin_sdk/screens/responsive.dart';
 import 'package:daily_readings_admin_sdk/services/auth.dart';
@@ -68,7 +69,7 @@ class _ProfileCardState extends State<ProfileCard> {
                 vertical: defaultPadding / 2,
               ),
               decoration: BoxDecoration(
-                color: secondaryColor,
+                color: AppColors.secondaryColor,
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(
                     color: const Color.fromRGBO(255, 255, 255, 0.102)),
@@ -151,7 +152,7 @@ class SearchField extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
         hintText: "Search",
-        fillColor: secondaryColor,
+        fillColor: AppColors.secondaryColor,
         filled: true,
         hintStyle: const TextStyle(color: Colors.white),
         border: const OutlineInputBorder(
@@ -165,7 +166,7 @@ class SearchField extends StatelessWidget {
               margin:
                   const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               decoration: const BoxDecoration(
-                color: primaryColor,
+                color: AppColors.kPrimaryColor,
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               child: const Icon(

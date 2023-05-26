@@ -1,3 +1,4 @@
+import 'package:daily_readings_admin_sdk/helpers/app_colors.dart';
 import 'package:daily_readings_admin_sdk/helpers/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class Chart extends StatelessWidget {
 
 List<PieChartSectionData> paiChartSelectionData = [
   PieChartSectionData(
-    color: primaryColor,
+    color: AppColors.kPrimaryColor,
     value: 25,
     showTitle: false,
     radius: 25,
@@ -71,7 +72,7 @@ List<PieChartSectionData> paiChartSelectionData = [
     radius: 16,
   ),
   PieChartSectionData(
-    color: primaryColor.withOpacity(0.1),
+    color: AppColors.kPrimaryColor.withOpacity(0.1),
     value: 25,
     showTitle: false,
     radius: 13,

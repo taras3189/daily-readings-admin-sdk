@@ -1,10 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../helpers/slide_right_route.dart';
 import '../../models/products.dart';
 import 'add_product_screen.dart';
-import '../home/home.dart';
-
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key, required this.errMsg}) : super(key: key);
   final String errMsg;
@@ -73,12 +72,7 @@ class _StatefulProductsWidget extends State<StatefulProductsWidget> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 255, 255, 255)),
-          onPressed: () => Navigator.pushReplacement(
-              context,
-              SlideRightRoute(
-                  page: const HomeScreen(
-                errMsg: '',
-              ))),
+          onPressed: () =>Get.toNamed('/home'),
         ),
       ),
       body: const Center(

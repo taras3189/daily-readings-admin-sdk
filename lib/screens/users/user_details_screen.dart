@@ -1,4 +1,3 @@
-
 import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
 import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
@@ -53,15 +52,9 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
         ),
         backgroundColor: const Color.fromARGB(255, 71, 123, 171),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back,
-              color: Color.fromARGB(255, 255, 255, 255)),
-          onPressed: () => Navigator.pushReplacement(
-              context,
-              SlideRightRoute(
-                  page: const UsersScreen(
-                errMsg: '',
-              ))),
-        ),
+            icon: const Icon(Icons.arrow_back,
+                color: Color.fromARGB(255, 255, 255, 255)),
+            onPressed: () => Get.back()),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -138,9 +131,9 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
                                   //     color: Color.fromARGB(255, 128, 255, 0),
                                   //     width: 1.0),
                                 )),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        const Color.fromARGB(255, 71, 123, 171)),
+                                backgroundColor: MaterialStateProperty.all<
+                                        Color>(
+                                    const Color.fromARGB(255, 71, 123, 171)),
                               ),
                               onPressed: () async {
                                 Navigator.pushReplacement(
