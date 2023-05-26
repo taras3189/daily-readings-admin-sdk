@@ -12,6 +12,7 @@ class UserModel {
     this.fontHeight = 1,
     this.uid = '',
     this.name = '',
+    this.avatar = '',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
@@ -23,5 +24,6 @@ class UserModel {
   double fontHeight;
   String uid;
   String name;
+  String avatar;
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

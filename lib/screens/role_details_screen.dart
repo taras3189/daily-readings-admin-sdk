@@ -1,11 +1,9 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../helpers/slide_right_route.dart';
 import '../models/roles.dart';
-import '../services/api_service.dart';
 import 'add_permissions_screen.dart';
 import 'edit_role_screen.dart';
 
@@ -42,7 +40,6 @@ class _RoleDetailsWidgetState extends State<StatefulRoleDetailsWidget> {
 
   final Roles roles;
   final String errMsg;
-  final ApiService api = ApiService();
 
   @override
   void initState() {
@@ -285,9 +282,9 @@ class _RoleDetailsWidgetState extends State<StatefulRoleDetailsWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Warning!'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('Are you sure want delete this item?'),
               ],
             ),
@@ -297,43 +294,43 @@ class _RoleDetailsWidgetState extends State<StatefulRoleDetailsWidget> {
               child: const Text('Yes'),
               onPressed: () async {
                 EasyLoading.show();
-                var res = await api.deleteRole(widget.roles.id.toString());
+                // var res = await api.deleteRole(widget.roles.id.toString());
 
-                switch (res.statusCode) {
-                  case 200:
-                    EasyLoading.dismiss();
-                    Navigator.pushReplacement(
-                        context,
-                        SlideRightRoute(
-                            page: const RolesScreen(
-                          errMsg: 'Deleted Successfully',
-                        )));
-                    break;
-                  case 400:
-                    EasyLoading.dismiss();
-                    var data = jsonDecode(res.body);
-                    if (data["msg"] != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(data["msg"].toString()),
-                      ));
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Delete Failed"),
-                    ));
-                    break;
-                  case 403:
-                    EasyLoading.dismiss();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Permission Denied"),
-                    ));
-                    break;
-                  default:
-                    EasyLoading.dismiss();
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("Delete Failed"),
-                    ));
-                    break;
-                }
+                // switch (res.statusCode) {
+                //   case 200:
+                //     EasyLoading.dismiss();
+                //     Navigator.pushReplacement(
+                //         context,
+                //         SlideRightRoute(
+                //             page: const RolesScreen(
+                //           errMsg: 'Deleted Successfully',
+                //         )));
+                //     break;
+                //   case 400:
+                //     EasyLoading.dismiss();
+                //     var data = jsonDecode(res.body);
+                //     if (data["msg"] != null) {
+                //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //         content: Text(data["msg"].toString()),
+                //       ));
+                //     }
+                //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //       content: Text("Delete Failed"),
+                //     ));
+                //     break;
+                //   case 403:
+                //     EasyLoading.dismiss();
+                //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //       content: Text("Permission Denied"),
+                //     ));
+                //     break;
+                //   default:
+                //     EasyLoading.dismiss();
+                //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //       content: Text("Delete Failed"),
+                //     ));
+                //     break;
+                // }
               },
             ),
             ElevatedButton(

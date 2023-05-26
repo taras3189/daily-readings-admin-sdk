@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
 import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/auth.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../helpers/slide_right_route.dart';
-import '../../services/api_service.dart';
 
 class AddUserScreen extends StatelessWidget {
   const AddUserScreen({Key? key}) : super(key: key);
@@ -16,7 +12,7 @@ class AddUserScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StatefulAddUsersWidget();
+    return const StatefulAddUsersWidget();
   }
 }
 
@@ -34,7 +30,6 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
     'Group Admin',
     'User',
   ];
-  final ApiService api = ApiService();
   final _addUserFormKey = GlobalKey<FormState>();
   int? _valRole;
   final _passwordController = TextEditingController();
@@ -64,7 +59,7 @@ class _AddUserWidgetState extends State<StatefulAddUsersWidget> {
             color: Color.fromARGB(255, 255, 255, 255),
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 71, 123, 171),
+        backgroundColor: const Color.fromARGB(255, 71, 123, 171),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back,
               color: Color.fromARGB(255, 255, 255, 255)),

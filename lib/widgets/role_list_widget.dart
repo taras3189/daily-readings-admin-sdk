@@ -13,7 +13,7 @@ class RoleListWidget extends StatelessWidget {
         itemCount: roles.isEmpty ? 0 : roles.length,
         itemBuilder: (BuildContext context, int index) {
           return Padding(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             child: Card(
               color: const Color.fromARGB(255, 255, 255, 255),
               shape: RoundedRectangleBorder(

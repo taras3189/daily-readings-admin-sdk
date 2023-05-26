@@ -1,14 +1,11 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
 import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
-import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../helpers/slide_right_route.dart';
-import '../../models/users.dart';
 import 'edit_user_screen.dart';
 
 class UserDetailsScreen extends StatelessWidget {
@@ -37,7 +34,6 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
   _UserDetailsWidgetState({required this.users});
 
   final UserModel users;
-  final ApiService api = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -223,9 +219,9 @@ class _UserDetailsWidgetState extends State<StatefulUserDetailsWidget> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Warning!'),
-            content: SingleChildScrollView(
+            content: const SingleChildScrollView(
               child: ListBody(
-                children: const <Widget>[
+                children: <Widget>[
                   Text('Are you sure want delete this item?'),
                 ],
               ),

@@ -1,8 +1,6 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/helpers/slide_right_route.dart';
 import 'package:daily_readings_admin_sdk/models/user/user_model.dart';
-import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +34,6 @@ class _EditUserWidgetState extends State<StatefulEditUserWidget> {
   _EditUserWidgetState({required this.users});
 
   final UserModel users;
-  final ApiService api = ApiService();
   final _editUserFormKey = GlobalKey<FormState>();
   int? _valRole;
   final _emailController = TextEditingController();

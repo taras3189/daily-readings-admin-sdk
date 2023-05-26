@@ -1,10 +1,7 @@
-import 'package:daily_readings_admin_sdk/screens/login.dart';
 import 'package:daily_readings_admin_sdk/services/storage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../screens/home/home.dart';
 import 'firestore.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -63,7 +60,7 @@ class AuthController extends GetxController {
       firestoreController.reInit(userCredential.user!.uid, userCredential.user);
       Storage.saveValueIfNull('uid', userCredential.user?.uid);
       EasyLoading.dismiss();
-      Get.to(() => const HomeScreen(errMsg: ''));
+      Get.toNamed('/home');
     } on FirebaseAuthException catch (e) {
       print('${e.message}');
       if (e.code == 'user-not-found') {

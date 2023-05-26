@@ -1,15 +1,11 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/models/permissions.dart';
 import 'package:daily_readings_admin_sdk/screens/role_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:http/http.dart';
 
 import '../helpers/slide_right_route.dart';
 import '../models/roles.dart';
-import '../services/api_service.dart';
-import 'login.dart';
 
 class AddPermissionsScreen extends StatelessWidget {
   const AddPermissionsScreen({Key? key, required this.role}) : super(key: key);
@@ -38,14 +34,14 @@ class StatefulAddPermissionWidget extends StatefulWidget {
 class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
   _AddPermissionWidgetState({required this.role});
   final Roles role;
-  final ApiService api = ApiService();
+  // final ApiService api = ApiService();
   final _addPermissionFormKey = GlobalKey<FormState>();
   late List<Permissions> permissions = [];
 
-  Future<Response> get listPermissions async {
-    EasyLoading.show();
-    return await api.getPermissionList();
-  }
+  // Future<Response> get listPermissions async {
+  //   EasyLoading.show();
+  //   return await api.getPermissionList();
+  // }
 
   bool setValue(int index) {
     bool permVal = false;
@@ -83,155 +79,155 @@ class _AddPermissionWidgetState extends State<StatefulAddPermissionWidget> {
                   page: RoleDetailsScreen(roles: role, errMsg: ''))),
         ),
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: listPermissions,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              Response resp = snapshot.data as Response;
-              if (resp.statusCode == 200) {
-                EasyLoading.dismiss();
-                final jsonMap = json.decode(resp.body);
-                permissions = (jsonMap as List)
-                    .map((roleItem) => Permissions.fromJson(roleItem))
-                    .toList();
-                return permissions.isNotEmpty
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 10.0),
-                        child: ListView.builder(
-                          itemCount:
-                              permissions.isEmpty ? 0 : permissions.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 0.0, horizontal: 0.0),
-                              child: CheckboxListTile(
-                                title: Text(
-                                  permissions[index].permDescription.toString(),
-                                  style: const TextStyle(
-                                    fontFamily: 'Roboto',
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                  ),
-                                ),
-                                value: setValue(index),
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                onChanged: (bool? newValue) {
-                                  if (newValue == true) {
-                                    var matchPerm = role.permissions!.where(
-                                        (perm) =>
-                                            perm.id == permissions[index].id);
-                                    if (matchPerm.isEmpty) {
-                                      setState(() {
-                                        role.permissions!.add(
-                                            permissions[index] as Permissions);
-                                      });
-                                    }
-                                  } else {
-                                    var matchPerm = role.permissions!.where(
-                                        (perm) =>
-                                            perm.id == permissions[index].id);
-                                    if (matchPerm.isNotEmpty) {
-                                      setState(() {
-                                        role.permissions!.removeWhere((item) =>
-                                            item.id == permissions[index].id);
-                                      });
-                                    }
-                                  }
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                    : const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                          child: Text(
-                            'No roles found',
-                            overflow: TextOverflow.visible,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              height: 1.171875,
-                              fontSize: 24.0,
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
-                          ),
-                        ),
-                      );
-              } else if (resp.statusCode == 401) {
-                EasyLoading.dismiss();
-                Future.delayed(Duration.zero, () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen(
-                                errMsg: 'Unauthenticated',
-                              )));
-                });
-              } else if (resp.statusCode == 403) {
-                EasyLoading.dismiss();
-                Future.delayed(Duration.zero, () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RoleDetailsScreen(
-                              roles: role, errMsg: 'Permission Denied')));
-                });
-              }
-            } else if (snapshot.hasError) {
-              EasyLoading.dismiss();
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text('${snapshot.error}'),
-              ));
-            }
-            return const Center(
-              child: Text(''''''),
-            );
-          },
-        ),
-      ),
+      // body: Center(
+      //   child: FutureBuilder(
+      //     future: listPermissions,
+      //     builder: (context, snapshot) {
+      //       if (snapshot.hasData) {
+      //         Response resp = snapshot.data as Response;
+      //         if (resp.statusCode == 200) {
+      //           EasyLoading.dismiss();
+      //           final jsonMap = json.decode(resp.body);
+      //           permissions = (jsonMap as List)
+      //               .map((roleItem) => Permissions.fromJson(roleItem))
+      //               .toList();
+      //           return permissions.isNotEmpty
+      //               ? Padding(
+      //                   padding: const EdgeInsets.symmetric(
+      //                       vertical: 10.0, horizontal: 10.0),
+      //                   child: ListView.builder(
+      //                     itemCount:
+      //                         permissions.isEmpty ? 0 : permissions.length,
+      //                     itemBuilder: (BuildContext context, int index) {
+      //                       return Padding(
+      //                         padding: const EdgeInsets.symmetric(
+      //                             vertical: 0.0, horizontal: 0.0),
+      //                         child: CheckboxListTile(
+      //                           title: Text(
+      //                             permissions[index].permDescription.toString(),
+      //                             style: const TextStyle(
+      //                               fontFamily: 'Roboto',
+      //                               color: Color.fromARGB(255, 0, 0, 0),
+      //                             ),
+      //                           ),
+      //                           value: setValue(index),
+      //                           controlAffinity:
+      //                               ListTileControlAffinity.leading,
+      //                           onChanged: (bool? newValue) {
+      //                             if (newValue == true) {
+      //                               var matchPerm = role.permissions!.where(
+      //                                   (perm) =>
+      //                                       perm.id == permissions[index].id);
+      //                               if (matchPerm.isEmpty) {
+      //                                 setState(() {
+      //                                   role.permissions!.add(
+      //                                       permissions[index] as Permissions);
+      //                                 });
+      //                               }
+      //                             } else {
+      //                               var matchPerm = role.permissions!.where(
+      //                                   (perm) =>
+      //                                       perm.id == permissions[index].id);
+      //                               if (matchPerm.isNotEmpty) {
+      //                                 setState(() {
+      //                                   role.permissions!.removeWhere((item) =>
+      //                                       item.id == permissions[index].id);
+      //                                 });
+      //                               }
+      //                             }
+      //                           },
+      //                         ),
+      //                       );
+      //                     },
+      //                   ),
+      //                 )
+      //               : const Center(
+      //                   child: Padding(
+      //                     padding: EdgeInsets.symmetric(
+      //                         vertical: 10.0, horizontal: 20.0),
+      //                     child: Text(
+      //                       'No roles found',
+      //                       overflow: TextOverflow.visible,
+      //                       textAlign: TextAlign.center,
+      //                       style: TextStyle(
+      //                         height: 1.171875,
+      //                         fontSize: 24.0,
+      //                         fontFamily: 'Roboto',
+      //                         fontWeight: FontWeight.w300,
+      //                         color: Color.fromARGB(255, 255, 255, 255),
+      //                       ),
+      //                     ),
+      //                   ),
+      //                 );
+      //         } else if (resp.statusCode == 401) {
+      //           EasyLoading.dismiss();
+      //           Future.delayed(Duration.zero, () {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) => const LoginScreen(
+      //                           errMsg: 'Unauthenticated',
+      //                         )));
+      //           });
+      //         } else if (resp.statusCode == 403) {
+      //           EasyLoading.dismiss();
+      //           Future.delayed(Duration.zero, () {
+      //             Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                     builder: (context) => RoleDetailsScreen(
+      //                         roles: role, errMsg: 'Permission Denied')));
+      //           });
+      //         }
+      //       } else if (snapshot.hasError) {
+      //         EasyLoading.dismiss();
+      //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //           content: Text('${snapshot.error}'),
+      //         ));
+      //       }
+      //       return const Center(
+      //         child: Text(''''''),
+      //       );
+      //     },
+      //   ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           EasyLoading.show();
           List<int?> permissionsInt =
               role.permissions!.map((e) => e.id).toList();
-          var res = await api.addPermissiontoRole(role.id, permissionsInt);
+          // var res = await api.addPermissiontoRole(role.id, permissionsInt);
 
-          switch (res.statusCode) {
-            case 200:
-              EasyLoading.dismiss();
-              Navigator.pushReplacement(
-                  context,
-                  SlideRightRoute(
-                      page: RoleDetailsScreen(
-                          roles: role,
-                          errMsg: 'Permission added to role successfully')));
-              break;
-            case 400:
-              EasyLoading.dismiss();
-              var data = jsonDecode(res.body);
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Failed to Add Permissions"),
-              ));
-              break;
-            case 403:
-              EasyLoading.dismiss();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Permission Denied"),
-              ));
-              break;
-            default:
-              EasyLoading.dismiss();
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text("Failed to Add Permissions"),
-              ));
-              break;
-          }
+          // switch (res.statusCode) {
+          //   case 200:
+          //     EasyLoading.dismiss();
+          //     Navigator.pushReplacement(
+          //         context,
+          //         SlideRightRoute(
+          //             page: RoleDetailsScreen(
+          //                 roles: role,
+          //                 errMsg: 'Permission added to role successfully')));
+          //     break;
+          //   case 400:
+          //     EasyLoading.dismiss();
+          //     var data = jsonDecode(res.body);
+          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //       content: Text("Failed to Add Permissions"),
+          //     ));
+          //     break;
+          //   case 403:
+          //     EasyLoading.dismiss();
+          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //       content: Text("Permission Denied"),
+          //     ));
+          //     break;
+          //   default:
+          //     EasyLoading.dismiss();
+          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          //       content: Text("Failed to Add Permissions"),
+          //     ));
+          //     break;
+          // }
         },
         tooltip: 'Increment',
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),

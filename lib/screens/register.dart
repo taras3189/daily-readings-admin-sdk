@@ -1,11 +1,9 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/services/auth.dart';
 import 'package:daily_readings_admin_sdk/services/firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +16,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StatefulRegisterWidget();
+    return const StatefulRegisterWidget();
   }
 }
 

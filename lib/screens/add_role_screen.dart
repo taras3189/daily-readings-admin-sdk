@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../helpers/slide_right_route.dart';
-import '../services/api_service.dart';
 
 class AddRoleScreen extends StatelessWidget {
   const AddRoleScreen({Key? key}) : super(key: key);
@@ -11,7 +9,7 @@ class AddRoleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StatefulAddRoleWidget();
+    return const StatefulAddRoleWidget();
   }
 }
 
@@ -24,7 +22,7 @@ class StatefulAddRoleWidget extends StatefulWidget {
 }
 
 class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
-  final ApiService api = ApiService();
+  // final ApiService api = ApiService();
   final _addRoleFormKey = GlobalKey<FormState>();
   final _roleNameController = TextEditingController();
   final _roleDescriptionController = TextEditingController();
@@ -213,48 +211,48 @@ class _AddRoleWidgetState extends State<StatefulAddRoleWidget> {
                       if (_addRoleFormKey.currentState!.validate()) {
                         _addRoleFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.addRole(_roleNameController.text,
-                            _roleDescriptionController.text);
+                        // var res = await api.addRole(_roleNameController.text,
+                        //     _roleDescriptionController.text);
 
-                        switch (res.statusCode) {
-                          case 201:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context,
-                                SlideRightRoute(
-                                    page: const RolesScreen(
-                                  errMsg: 'Role Added Successfully',
-                                )));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"]) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add Role"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add Role"),
-                            ));
-                            break;
-                        }
+                        // switch (res.statusCode) {
+                        //   case 201:
+                        //     EasyLoading.dismiss();
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         SlideRightRoute(
+                        //             page: const RolesScreen(
+                        //           errMsg: 'Role Added Successfully',
+                        //         )));
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"]) {
+                        //       ScaffoldMessenger.of(context)
+                        //           .showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add Role"),
+                        //     ));
+                        //     break;
+                        //   case 403:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Permission Denied"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add Role"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('SAVE',

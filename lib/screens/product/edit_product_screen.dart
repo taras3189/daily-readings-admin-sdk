@@ -1,12 +1,9 @@
-import 'dart:convert';
 
-import 'package:daily_readings_admin_sdk/screens/product_details_screen.dart';
-import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/product/product_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../helpers/slide_right_route.dart';
-import '../models/products.dart';
-import '../services/api_service.dart';
+import '../../helpers/slide_right_route.dart';
+import '../../models/products.dart';
 
 class EditProductScreen extends StatelessWidget {
   const EditProductScreen({Key? key, required this.products}) : super(key: key);
@@ -33,7 +30,7 @@ class StatefulEditProductWidget extends StatefulWidget {
 class _EditProductWidgetState extends State<StatefulEditProductWidget> {
   _EditProductWidgetState({required this.products});
   final Products products;
-  final ApiService api = ApiService();
+  // final ApiService api = ApiService();
   final _editProductFormKey = GlobalKey<FormState>();
   final _productNameController = TextEditingController();
   final _productDescriptionController = TextEditingController();
@@ -344,52 +341,52 @@ class _EditProductWidgetState extends State<StatefulEditProductWidget> {
                       if (_editProductFormKey.currentState!.validate()) {
                         _editProductFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.updateProduct(
-                            products.id,
-                            _productNameController.text,
-                            _productDescriptionController.text,
-                            _productImageController.text,
-                            _productPriceController.text);
+                        // var res = await api.updateProduct(
+                        //     products.id,
+                        //     _productNameController.text,
+                        //     _productDescriptionController.text,
+                        //     _productImageController.text,
+                        //     _productPriceController.text);
 
-                        switch (res.statusCode) {
-                          case 200:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context,
-                                SlideRightRoute(
-                                    page: const ProductsScreen(
-                                  errMsg: 'Updated Successfully',
-                                )));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"] != null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                        }
+                        // switch (res.statusCode) {
+                        //   case 200:
+                        //     EasyLoading.dismiss();
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         SlideRightRoute(
+                        //             page: const ProductsScreen(
+                        //           errMsg: 'Updated Successfully',
+                        //         )));
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"] != null) {
+                        //       ScaffoldMessenger.of(context)
+                        //           .showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Update Failed"),
+                        //     ));
+                        //     break;
+                        //   case 403:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Permission Denied"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Update Failed"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('UPDATE',

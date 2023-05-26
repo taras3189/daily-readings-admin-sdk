@@ -21,32 +21,11 @@ class FirestoreController extends GetxController {
   @override
   void onInit() {
     uid = injectedUID;
-    initData();
     listenUser();
     super.onInit();
   }
 
-  void initData() {
-    if (auth.currentUser == null) {
-      userDataModel.update((val) {
-        if (Storage.hasData('fontSize')) {
-          val?.fontSize = Storage.getValue('fontSize');
-        } else {
-          val?.fontSize = 20;
-        }
-        if (Storage.hasData('fontHeight')) {
-          val?.fontHeight = Storage.getValue('fontHeight');
-        } else {
-          val?.fontHeight = 1;
-        }
-        if (Storage.hasData('fontFamily')) {
-          val?.fontFamily = Storage.getValue('fontFamily');
-        } else {
-          val?.fontFamily = 'Roboto';
-        }
-      });
-    }
-  }
+  
 
   void reInit(String id, [User? user]) {
     uid = id;
@@ -94,10 +73,10 @@ class FirestoreController extends GetxController {
         .catchError((error) => print('Failed to add user: $error'));
   }
 
-  Future<void> updateUserById(String? _uid, Map<String, dynamic> obj) {
+  Future<void> updateUserById(String? uid, Map<String, dynamic> obj) {
     return firestore
         .collection('users')
-        .doc(_uid)
+        .doc(uid)
         .update(obj)
         .then((value) => print('User Updated'))
         .catchError((error) => print('Failed to update user: $error'));

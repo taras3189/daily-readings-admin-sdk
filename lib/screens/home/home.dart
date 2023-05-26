@@ -1,4 +1,4 @@
-import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/product/products_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
 import 'package:daily_readings_admin_sdk/screens/users/users_screen.dart';
 import 'package:daily_readings_admin_sdk/services/auth.dart';
@@ -8,12 +8,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
 import '../../helpers/slide_right_route.dart';
-import '../login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key, required this.errMsg}) : super(key: key);
   final String errMsg;
-  static const String _title = 'Home';
 
   @override
   Widget build(BuildContext context) {
@@ -208,9 +206,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                   ),
                   onTap: () async {
                     await auth.logOut();
-                    Get.offAll(() => const LoginScreen(
-                          errMsg: 'User logged out',
-                        ));
+                    Get.offAllNamed('/');
                   },
                 ),
               ),
@@ -227,7 +223,7 @@ class _StatefulHomeWidget extends State<StatefulHomeWidget> {
                     '$key: ${firestore.userDataModel.value.toJson()[key]}',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.visible,
-                    style: TextStyle(
+                    style: const TextStyle(
                       height: 1.171875,
                       fontSize: 18.0,
                       fontFamily: 'Roboto',

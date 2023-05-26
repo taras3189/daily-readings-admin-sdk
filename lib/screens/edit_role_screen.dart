@@ -1,8 +1,5 @@
-import 'dart:convert';
 
 import 'package:daily_readings_admin_sdk/screens/role_details_screen.dart';
-import 'package:daily_readings_admin_sdk/screens/roles_screen.dart';
-import 'package:daily_readings_admin_sdk/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../helpers/slide_right_route.dart';
@@ -32,7 +29,7 @@ class _EditRoleWidgetState extends State<StatefulEditRoleWidget> {
   _EditRoleWidgetState({required this.roles});
 
   final Roles roles;
-  final ApiService api = ApiService();
+  // final ApiService api = ApiService();
   final _editRoleFormKey = GlobalKey<FormState>();
   final _roleNameController = TextEditingController();
   final _roleDescriptionController = TextEditingController();
@@ -232,50 +229,50 @@ class _EditRoleWidgetState extends State<StatefulEditRoleWidget> {
                       if (_editRoleFormKey.currentState!.validate()) {
                         _editRoleFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.updateRole(
-                            roles.id,
-                            _roleNameController.text,
-                            _roleDescriptionController.text);
+                        // var res = await api.updateRole(
+                        //     roles.id,
+                        //     _roleNameController.text,
+                        //     _roleDescriptionController.text);
 
-                        switch (res.statusCode) {
-                          case 200:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context,
-                                SlideRightRoute(
-                                    page: const RolesScreen(
-                                  errMsg: 'Updated Successfully',
-                                )));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"] != null) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Update Failed"),
-                            ));
-                            break;
-                        }
+                      //   switch (res.statusCode) {
+                      //     case 200:
+                      //       EasyLoading.dismiss();
+                      //       Navigator.pushReplacement(
+                      //           context,
+                      //           SlideRightRoute(
+                      //               page: const RolesScreen(
+                      //             errMsg: 'Updated Successfully',
+                      //           )));
+                      //       break;
+                      //     case 400:
+                      //       EasyLoading.dismiss();
+                      //       var data = jsonDecode(res.body);
+                      //       if (data["msg"] != null) {
+                      //         ScaffoldMessenger.of(context)
+                      //             .showSnackBar(SnackBar(
+                      //           content: Text(data["msg"].toString()),
+                      //         ));
+                      //       }
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(const SnackBar(
+                      //         content: Text("Update Failed"),
+                      //       ));
+                      //       break;
+                      //     case 403:
+                      //       EasyLoading.dismiss();
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(const SnackBar(
+                      //         content: Text("Permission Denied"),
+                      //       ));
+                      //       break;
+                      //     default:
+                      //       EasyLoading.dismiss();
+                      //       ScaffoldMessenger.of(context)
+                      //           .showSnackBar(const SnackBar(
+                      //         content: Text("Update Failed"),
+                      //       ));
+                      //       break;
+                      //   }
                       }
                     },
                     label: const Text('UPDATE',

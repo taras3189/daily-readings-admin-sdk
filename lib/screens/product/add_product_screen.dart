@@ -1,18 +1,15 @@
-import 'dart:convert';
 
-import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/product/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import '../helpers/slide_right_route.dart';
-import '../services/api_service.dart';
-
+import '../../helpers/slide_right_route.dart';
 class AddProductScreen extends StatelessWidget {
   const AddProductScreen({Key? key}) : super(key: key);
   static const String _title = 'Add Product';
 
   @override
   Widget build(BuildContext context) {
-    return StatefulAddProductWidget();
+    return const StatefulAddProductWidget();
   }
 }
 
@@ -25,7 +22,7 @@ class StatefulAddProductWidget extends StatefulWidget {
 }
 
 class _AddProductWidgetState extends State<StatefulAddProductWidget> {
-  final ApiService api = ApiService();
+  // final ApiService api = ApiService();
   final _addProductFormKey = GlobalKey<FormState>();
   final _productNameController = TextEditingController();
   final _productDescriptionController = TextEditingController();
@@ -327,51 +324,51 @@ class _AddProductWidgetState extends State<StatefulAddProductWidget> {
                       if (_addProductFormKey.currentState!.validate()) {
                         _addProductFormKey.currentState!.save();
                         EasyLoading.show();
-                        var res = await api.addProduct(
-                            _productNameController.text,
-                            _productDescriptionController.text,
-                            _productImageController.text,
-                            _productPriceController.text);
+                        // var res = await api.addProduct(
+                        //     _productNameController.text,
+                        //     _productDescriptionController.text,
+                        //     _productImageController.text,
+                        //     _productPriceController.text);
 
-                        switch (res.statusCode) {
-                          case 201:
-                            EasyLoading.dismiss();
-                            Navigator.pushReplacement(
-                                context,
-                                SlideRightRoute(
-                                    page: const ProductsScreen(
-                                  errMsg: 'Product Added Successfully',
-                                )));
-                            break;
-                          case 400:
-                            EasyLoading.dismiss();
-                            var data = jsonDecode(res.body);
-                            if (data["msg"]) {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                content: Text(data["msg"].toString()),
-                              ));
-                            }
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add Product"),
-                            ));
-                            break;
-                          case 403:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Permission Denied"),
-                            ));
-                            break;
-                          default:
-                            EasyLoading.dismiss();
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text("Failed to Add Product"),
-                            ));
-                            break;
-                        }
+                        // switch (res.statusCode) {
+                        //   case 201:
+                        //     EasyLoading.dismiss();
+                        //     Navigator.pushReplacement(
+                        //         context,
+                        //         SlideRightRoute(
+                        //             page: const ProductsScreen(
+                        //           errMsg: 'Product Added Successfully',
+                        //         )));
+                        //     break;
+                        //   case 400:
+                        //     EasyLoading.dismiss();
+                        //     var data = jsonDecode(res.body);
+                        //     if (data["msg"]) {
+                        //       ScaffoldMessenger.of(context)
+                        //           .showSnackBar(SnackBar(
+                        //         content: Text(data["msg"].toString()),
+                        //       ));
+                        //     }
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add Product"),
+                        //     ));
+                        //     break;
+                        //   case 403:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Permission Denied"),
+                        //     ));
+                        //     break;
+                        //   default:
+                        //     EasyLoading.dismiss();
+                        //     ScaffoldMessenger.of(context)
+                        //         .showSnackBar(const SnackBar(
+                        //       content: Text("Failed to Add Product"),
+                        //     ));
+                        //     break;
+                        // }
                       }
                     },
                     label: const Text('SAVE',

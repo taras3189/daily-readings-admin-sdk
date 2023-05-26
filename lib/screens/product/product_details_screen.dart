@@ -1,12 +1,10 @@
-import 'dart:convert';
 
-import 'package:daily_readings_admin_sdk/screens/products_screen.dart';
+import 'package:daily_readings_admin_sdk/screens/product/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import '../helpers/slide_right_route.dart';
-import '../models/products.dart';
-import '../services/api_service.dart';
+import '../../helpers/slide_right_route.dart';
+import '../../models/products.dart';
 import 'edit_product_screen.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -36,7 +34,6 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
   _ProductDetailsWidgetState({required this.products});
 
   final Products products;
-  final ApiService api = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +86,7 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.8))),
                             Text(widget.products.prodName.toString(),
-                                style: Theme.of(context).textTheme.subtitle1)
+                                style: Theme.of(context).textTheme.titleMedium)
                           ],
                         ),
                       ),
@@ -101,7 +98,7 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                 style: TextStyle(
                                     color: Colors.black.withOpacity(0.8))),
                             Text(widget.products.prodDescription.toString(),
-                                style: Theme.of(context).textTheme.subtitle1)
+                                style: Theme.of(context).textTheme.titleMedium)
                           ],
                         ),
                       ),
@@ -127,7 +124,7 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
                                 NumberFormat.currency(
                                         locale: 'id', symbol: 'Rp')
                                     .format(widget.products.prodPrice),
-                                style: Theme.of(context).textTheme.subtitle1)
+                                style: Theme.of(context).textTheme.titleMedium)
                           ],
                         ),
                       ),
@@ -237,9 +234,9 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Warning!'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('Are you sure want delete this item?'),
               ],
             ),
@@ -249,44 +246,7 @@ class _ProductDetailsWidgetState extends State<StatefulProductDetailsWidget> {
               child: const Text('Yes'),
               onPressed: () async {
                 EasyLoading.show();
-                var res =
-                    await api.deleteProduct(widget.products.id.toString());
-
-                switch (res.statusCode) {
-                  case 200:
-                    EasyLoading.dismiss();
-                    Navigator.pushReplacement(
-                        context,
-                        SlideRightRoute(
-                            page: const ProductsScreen(
-                          errMsg: 'Deleted Successfully',
-                        )));
-                    break;
-                  case 400:
-                    EasyLoading.dismiss();
-                    var data = jsonDecode(res.body);
-                    if (data["msg"] != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(data["msg"].toString()),
-                      ));
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Delete Failed"),
-                    ));
-                    break;
-                  case 403:
-                    EasyLoading.dismiss();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Permission Denied"),
-                    ));
-                    break;
-                  default:
-                    EasyLoading.dismiss();
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Delete Failed"),
-                    ));
-                    break;
-                }
+                
               },
             ),
             ElevatedButton(
